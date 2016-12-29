@@ -1,6 +1,6 @@
 # AlertOrActionSheetDemo
-#此Demo功能描述:
-#一、模仿系统的``UIActionSheet``,封装了一个多样式的``ActionSheetView``,用法简单,导入头文件,``OKActionSheetView.h``使用;
+###此Demo功能描述:
+###一、模仿系统的``UIActionSheet``,封装了一个多样式的``ActionSheetView``,用法简单,导入头文件,``OKActionSheetView.h``使用;
 
 <顶部下拉弹框样式>
 ![顶部下拉弹框样式](http://ww1.sinaimg.cn/large/b04498f4gw1fb7s2nnd42g20ab0j1juq.gif)
@@ -46,7 +46,7 @@
     } WithTitle:@"测试底部按钮" cancelButtonTitle:@"取消" otherButtonTitleArr:@[@"按钮1",@"按钮2",@"按钮3",@"按钮4",@"按钮5",@"按钮6",@"按钮7",@"按钮8"]];
 ```
 
-#二、封装系统提示框, 兼容iOS9以下的``UiAlertView``, 和iOS9以上的``UIAlertController``;
+###二、封装系统提示框, 兼容iOS9以下的``UiAlertView``, 和iOS9以上的``UIAlertController``;
 <普通两个按钮弹框样式>
 ![普通两个按钮弹框样式](http://ww4.sinaimg.cn/large/b04498f4gw1fb7smu3sgmg20ab0j0n2b.gif)
 ###1.普通两个按钮弹框用法:
