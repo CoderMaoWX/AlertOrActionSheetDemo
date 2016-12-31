@@ -24,7 +24,7 @@
 {
     [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
-        showAlertToast(tip);
+        ShowAlertToast(tip);
         
     } title:nil message:@"普通弹框" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
 }
@@ -37,7 +37,7 @@
 {
     [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
-        showAlertToast(tip);
+        ShowAlertToast(tip);
         
     } title:@"温馨提示" message:@"显示两个以上按钮" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
 }
@@ -51,10 +51,10 @@
 {
     [OKAlertController inputAlertWithTitle:@"请输入" placeholder:@"输入弹框控件" cancelTitle:@"取消" otherTitle:@"确定" buttonBlock:^(NSString *inputText) {
         NSString *tip = [NSString stringWithFormat:@"您输入了:\n%@",inputText];
-        showAlertToast(tip);
+        ShowAlertToast(tip);
         
     } cancelBlock:^{
-        showAlertToast(@"点击了取消按钮");
+        ShowAlertToast(@"点击了取消按钮");
     }];
 }
 
