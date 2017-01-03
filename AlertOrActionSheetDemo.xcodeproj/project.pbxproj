@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */; };
+		A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */; };
 		B572602B1E14FF6F00B6A0AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602A1E14FF6F00B6A0AA /* main.m */; };
 		B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602D1E14FF6F00B6A0AA /* AppDelegate.m */; };
 		B57260311E14FF6F00B6A0AA /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57260301E14FF6F00B6A0AA /* FirstViewController.m */; };
@@ -21,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
+		A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
 		B57260261E14FF6F00B6A0AA /* AlertOrActionSheetDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertOrActionSheetDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572602A1E14FF6F00B6A0AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B572602C1E14FF6F00B6A0AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,6 +85,9 @@
 				B57260301E14FF6F00B6A0AA /* FirstViewController.m */,
 				B57260321E14FF6F00B6A0AA /* SecondViewController.h */,
 				B57260331E14FF6F00B6A0AA /* SecondViewController.m */,
+				A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */,
+				A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */,
+				A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */,
 				B57260351E14FF6F00B6A0AA /* Main.storyboard */,
 				B57260381E14FF6F00B6A0AA /* Assets.xcassets */,
 				B572603A1E14FF6F00B6A0AA /* LaunchScreen.storyboard */,
@@ -172,6 +180,7 @@
 			files = (
 				B572603C1E14FF6F00B6A0AA /* LaunchScreen.storyboard in Resources */,
 				B57260391E14FF6F00B6A0AA /* Assets.xcassets in Resources */,
+				A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */,
 				B57260371E14FF6F00B6A0AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -188,6 +197,7 @@
 				B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */,
 				B572604C1E14FFC000B6A0AA /* UIButton+CCExtension.m in Sources */,
 				B57260341E14FF6F00B6A0AA /* SecondViewController.m in Sources */,
+				A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */,
 				B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */,
 				B57260311E14FF6F00B6A0AA /* FirstViewController.m in Sources */,
 				B572602B1E14FF6F00B6A0AA /* main.m in Sources */,
@@ -349,6 +359,7 @@
 				B57260421E14FF6F00B6A0AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

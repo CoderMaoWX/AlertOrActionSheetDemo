@@ -15,8 +15,6 @@
 
 @implementation SecondViewController
 
-
-
 /**
  * 普通弹框
  */
@@ -56,6 +54,11 @@
     } cancelBlock:^{
         ShowAlertToast(@"点击了取消按钮");
     }];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.navigationController pushViewController:[NSClassFromString(@"ThirdViewController") new] animated:YES];
 }
 
 @end

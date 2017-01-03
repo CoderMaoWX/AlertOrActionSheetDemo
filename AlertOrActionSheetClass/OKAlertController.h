@@ -18,13 +18,18 @@ typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
 @interface OKAlertController : NSObject
 
 /**
- *  iOS的系统弹框, <已兼容iOS7的UIAlertView>;
- *  注意:如果有设置cancelButton, 则取消按钮的buttonIndex为:0, 其他otherButton的Index依次加1;
- *  @param alertViewCallBackBlock 点击按钮回调Block
+ iOS的系统弹框, <已兼容iOS7的UIAlertView>;
+ 注意:如果有设置cancelButton, 则取消按钮的buttonIndex为:0, 其他otherButton的Index依次加1;
+
+ @param alertViewCallBackBlock 点击按钮回调Block
+ @param title                  弹框标题->(支持 NSString、NSAttributedString)
+ @param message                弹框描述->(支持 NSString、NSAttributedString)
+ @param cancelButtonName       取消按钮标题，<暂时只能设置NSString>
+ @param otherButtonTitles      其他按钮标题，<暂时只能设置NSString>
  */
 + (void)alertWithCallBackBlock:(OKAlertViewCallBackBlock)alertViewCallBackBlock
-                         title:(NSString *)title
-                       message:(NSString *)message
+                         title:(id)title
+                       message:(id)message
               cancelButtonName:(NSString *)cancelButtonName
              otherButtonTitles:(NSString *)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION ;
 
