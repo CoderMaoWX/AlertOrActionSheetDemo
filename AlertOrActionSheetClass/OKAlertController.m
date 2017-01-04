@@ -81,28 +81,57 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
               cancelButtonName:(NSString *)cancelButtonName
              otherButtonTitles:(NSString *)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION
 {
-    if (KsystemVersion < 8.0){ // iOS8以前系统弹框用 UIAlertView
+    if(!title && !message){
+        NSLog(@"弹框至少要有一个文本信息");
+        return;
+    }
+
+    if (title && ![title isKindOfClass:[NSString class]] &&
+                  ![title isKindOfClass:[NSAttributedString class]]){
+        NSLog(@"弹框标题错误!");
+        return;
+    }
+    
+    if (message && ![message isKindOfClass:[NSString class]] &&
+                    ![message isKindOfClass:[NSAttributedString class]]){
+        NSLog(@"弹框提示信息错误");
+        return;
+    }
+    
+    //根据系统版本不同来显示弹框
+    if (KsystemVersion < 8.0){ //iOS8以前系统弹框用 UIAlertView
         
-        //在IOS7上显示弹框
-        [self showAlertViewOnIos7:alertViewCallBackBlock title:title message:message cancelButtonName:cancelButtonName otherButtonTitles:otherButtonTitles, nil];
+        //移除所有的已存在的 UIAlertView
+        [OKAlertController dismissIOS7AllAlertView];
+        
+        //暂时不对ios7设置富文本
+        if([title isKindOfClass:[NSAttributedString class]]){
+            title = ((NSAttributedString *)title).string;
+        }
+        
+        if([message isKindOfClass:[NSAttributedString class]]){
+            message = ((NSAttributedString *)message).string;
+        }
+        
+        UIAlertView *alert = [UIAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
+            if(alertViewCallBackBlock){
+                alertViewCallBackBlock(buttonIndex);
+            }
+        } title:title message:message cancelButtonName:cancelButtonName otherButtonTitles:otherButtonTitles, nil];
+        [[[UIApplication sharedApplication] keyWindow] addSubview:alert];
+        [alert show];
+        
+        //如果弹框没有一个按钮，则自动延迟隐藏
+        if(!cancelButtonName && !otherButtonTitles){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(OKAlertContr_dismissTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [alert dismissWithClickedButtonIndex:0 animated:YES];
+            });
+        }
         
     } else { //ios8以后系统弹框用 UIAlertController
         
-        if(!title && !message){
-            NSLog(@"至少要有一个文本信息");
-            return;
-        }
-        
         //防止窗口上有多个弹框导致弹框显示异常，如果有则先移除旧的弹框
-        UIViewController *hasPresentedVC = [[UIApplication sharedApplication] keyWindow].rootViewController.presentedViewController;
-        if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
-            [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
-        } else {
-            hasPresentedVC = [self activityViewController];
-            if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
-                [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
-            }
-        }
+        [OKAlertController dismissIOS8AllAlertController];
         
         //获取按钮个数
         NSMutableArray *mutableOtherTitles = [NSMutableArray array];
@@ -115,20 +144,19 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
         }
         va_end(otherButtonTitleList);
         
-        
-        if (title && (![title isKindOfClass:[NSString class]] ||
-                      ![title isKindOfClass:[NSAttributedString class]])){
-            title = @"标题错误!";
+        //临时title, message
+        NSString *titleStr = title;
+        if([title isKindOfClass:[NSAttributedString class]]){
+            titleStr = ((NSAttributedString *)title).string;
         }
         
-        if (message && (![message isKindOfClass:[NSString class]] ||
-                        ![message isKindOfClass:[NSAttributedString class]])){
-            message = @"提示信息错误!";
+        NSString *messageStr = message;
+        if([message isKindOfClass:[NSAttributedString class]]){
+            messageStr = ((NSAttributedString *)message).string;
         }
         
         //弹出ios9以上的系统框
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:titleStr message:messageStr preferredStyle:UIAlertControllerStyleAlert];
         
         //添加普通按钮
         void (^addOtherBtn)() = ^(){
@@ -202,17 +230,18 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
         /**<1> 设置标题字体为细体 */
         if(title && [OKAlertController getVariableWithClass:[alertController class] varName:@"attributedTitle"])
         {
+            NSDictionary *attrDic = @{NSForegroundColorAttributeName:OKAlertContr_BlackColor, NSFontAttributeName: OKAlertContr_font(16)};
+            
             if([title isKindOfClass:[NSString class]]){ //标题为普通NSString
                 
-                NSAttributedString *titleAttrs = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:OKAlertContr_BlackColor, NSFontAttributeName: OKAlertContr_font(16)}];
+                NSAttributedString *titleAttrs = [[NSAttributedString alloc] initWithString:title attributes:attrDic];
                 [alertController setValue:titleAttrs forKey:@"attributedTitle"];
                 
             } else if([title isKindOfClass:[NSAttributedString class]]){ //标题为普通富文本
                 
                 NSAttributedString *attrStr = (NSAttributedString *)title;
                 NSMutableAttributedString *titleAttrs = [[NSMutableAttributedString alloc] initWithAttributedString:attrStr];
-                [titleAttrs addAttribute:NSForegroundColorAttributeName value:OKAlertContr_BlackColor range:NSRangeFromString(attrStr.string)];
-                [titleAttrs addAttribute:NSFontAttributeName value:OKAlertContr_font(16) range:NSRangeFromString(attrStr.string)];
+                [titleAttrs addAttributes:attrDic range:NSRangeFromString(attrStr.string)];
                 [alertController setValue:titleAttrs forKey:@"attributedTitle"];
             }
         }
@@ -220,17 +249,17 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
         /**<2> 设置提示信息字体为细体 */
         if(message && [OKAlertController getVariableWithClass:[alertController class] varName:@"_attributedMessage"])
         {
+            NSDictionary *attrDic = @{NSForegroundColorAttributeName:OKAlertContr_BlackColor, NSFontAttributeName: OKAlertContr_font(14)};
+            
             if([message isKindOfClass:[NSString class]]){ //描述信息为普通NSString
-                
-                NSAttributedString *messageAttrs = [[NSAttributedString alloc] initWithString:message attributes:@{NSForegroundColorAttributeName:OKAlertContr_BlackColor, NSFontAttributeName: OKAlertContr_font(14)}];
+                NSAttributedString *messageAttrs = [[NSAttributedString alloc] initWithString:message attributes:attrDic];
                 [alertController setValue:messageAttrs forKey:@"_attributedMessage"];
                 
             } else if([message isKindOfClass:[NSAttributedString class]]){ //标描述信息为普通富文本
                 
                 NSAttributedString *attrStr = (NSAttributedString *)message;
                 NSMutableAttributedString *titleAttrs = [[NSMutableAttributedString alloc] initWithAttributedString:attrStr];
-                [titleAttrs addAttribute:NSForegroundColorAttributeName value:OKAlertContr_BlackColor range:NSRangeFromString(attrStr.string)];
-                [titleAttrs addAttribute:NSFontAttributeName value:OKAlertContr_font(14) range:NSRangeFromString(attrStr.string)];
+                [titleAttrs addAttributes:attrDic range:NSRangeFromString(attrStr.string)];
                 [alertController setValue:titleAttrs forKey:@"_attributedMessage"];
             }
         }
@@ -247,40 +276,6 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
     }
 }
 
-#pragma mark - 在IOS7上显示弹框
-
-/**
- *  在IOS7上显示弹框
- */
-+ (void)showAlertViewOnIos7:(OKAlertViewCallBackBlock)alertViewCallBackBlock
-                      title:(id)title
-                    message:(id)message
-           cancelButtonName:(NSString *)cancelButtonName
-          otherButtonTitles:(NSString *)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION
-{
-    if (KsystemVersion < 8.0){ // iOS8以前系统弹框用 UIAlertView
-        
-        //移除所有的已存在的 UIAlertView
-        [OKAlertController dismissAllAlertViewFromKeyWindow];
-        
-        UIAlertView *alert = [UIAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
-            if(alertViewCallBackBlock){
-                alertViewCallBackBlock(buttonIndex);
-            }
-        } title:title message:message cancelButtonName:cancelButtonName otherButtonTitles:otherButtonTitles, nil];
-        [[[UIApplication sharedApplication] keyWindow] addSubview:alert];
-        [alert show];
-        
-        //如果弹框没有一个按钮，则自动延迟隐藏
-        if(!cancelButtonName && !otherButtonTitles){
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(OKAlertContr_dismissTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [alert dismissWithClickedButtonIndex:0 animated:YES];
-            });
-        }
-        
-    }
-}
-
 
 #pragma mark ========================= 系统带输入的UIAlertView弹框 ========================
 
@@ -291,10 +286,10 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
                 buttonBlock:(void (^)(NSString *inputText))otherBlock
                 cancelBlock:(void (^)())cancelBlock
 {
-    if (KsystemVersion < 8.0){ // iOS9以前系统弹框
+    if (KsystemVersion < 8.0){ // iOS8以前系统弹框
         
         //移除所有的已存在的 UIAlertView
-        [OKAlertController dismissAllAlertViewFromKeyWindow];
+        [OKAlertController dismissIOS7AllAlertView];
         
         __block UIAlertView *alert = [UIAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
             if (buttonIndex == 0) {
@@ -326,19 +321,10 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
             });
         }
         
-    } else { //弹出ios9以上的系统框
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    } else { //弹出ios8以上的系统框
         
         //查看是否已经有弹框,有就先移除弹框, 否则多个弹框显示会异常
-        UIViewController *hasPresentedVC = window.rootViewController.presentedViewController;
-        if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
-            [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
-        } else {
-            hasPresentedVC = [self activityViewController];
-            if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
-                [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
-            }
-        }
+        [OKAlertController dismissIOS8AllAlertController];
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
         
@@ -408,6 +394,7 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
             }
         }
         
+        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
         [window.rootViewController presentViewController:alertController animated:YES completion:nil];
         
         //如果弹框没有一个按钮，则自动延迟隐藏
@@ -446,15 +433,32 @@ void ShowAlertToastByTitle(NSString *title, NSString *msg) {
 
 
 /**
- * iOS7系统，移除所有的已存在的 UIAlertView
+ * iOS8之前系统，移除所有的已存在的 UIAlertView
  */
-+ (void)dismissAllAlertViewFromKeyWindow
++ (void)dismissIOS7AllAlertView
 {
     for (UIWindow* w in [UIApplication sharedApplication].windows){
         for (NSObject* o in w.subviews){
             if ([o isKindOfClass:[UIAlertView class]]){
                 [(UIAlertView*)o dismissWithClickedButtonIndex:[(UIAlertView*)o cancelButtonIndex] animated:NO];
             }
+        }
+    }
+}
+
+/**
+ * iOS8以后系统，移除所有的已存在的 UIAlertController
+ */
++ (void)dismissIOS8AllAlertController
+{
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    UIViewController *hasPresentedVC = window.rootViewController.presentedViewController;
+    if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
+        [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
+    } else {
+        hasPresentedVC = [self activityViewController];
+        if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
+            [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
         }
     }
 }
