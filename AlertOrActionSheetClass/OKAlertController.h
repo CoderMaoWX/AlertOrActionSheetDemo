@@ -24,8 +24,8 @@ typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
  @param alertViewCallBackBlock 点击按钮回调Block
  @param title                  弹框标题->(支持 NSString、NSAttributedString)
  @param message                弹框描述->(支持 NSString、NSAttributedString)
- @param cancelButtonName       取消按钮标题，<暂时只能设置NSString>
- @param otherButtonTitles      其他按钮标题，<暂时只能设置NSString>
+ @param cancelButtonName       取消按钮标题，<只能设置NSString>
+ @param otherButtonTitles      其他按钮标题，<只能设置NSString>
  */
 + (void)alertWithCallBackBlock:(OKAlertViewCallBackBlock)alertViewCallBackBlock
                          title:(id)title
@@ -59,18 +59,18 @@ typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
 /**
  *  2秒自动消失的系统Alert弹框
  *
- *  @msg 提示文字
+ *  @msg 提示标题->(支持 NSString、NSAttributedString)
  */
-void ShowAlertToast(NSString *msg);
+void ShowAlertToast(id msg);
 
 
 /**
  * 2秒自动消失带标题的系统Alert弹框
  
- * @param title 标题
- * @param msg 提示信息
+ * @param title 提示标题->(支持 NSString、NSAttributedString)
+ * @param msg   提示信息->(支持 NSString、NSAttributedString)
  */
-void ShowAlertToastByTitle(NSString *title, NSString *msg);
+void ShowAlertToastByTitle(id title, id msg);
 
 @end
 

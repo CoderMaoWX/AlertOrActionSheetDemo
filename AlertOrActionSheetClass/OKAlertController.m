@@ -72,8 +72,8 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
  @param alertViewCallBackBlock 点击按钮回调Block
  @param title                  弹框标题->(支持 NSString、NSAttributedString)
  @param message                弹框描述->(支持 NSString、NSAttributedString)
- @param cancelButtonName       取消按钮标题，<暂时只能设置NSString>
- @param otherButtonTitles      其他按钮标题，<暂时只能设置NSString>
+ @param cancelButtonName       取消按钮标题，<只能设置NSString>
+ @param otherButtonTitles      其他按钮标题，<只能设置NSString>
  */
 + (void)alertWithCallBackBlock:(OKAlertViewCallBackBlock)alertViewCallBackBlock
                          title:(id)title
@@ -413,7 +413,7 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
  *
  *  @msg 提示文字
  */
-void ShowAlertToast(NSString *msg) {
+void ShowAlertToast(id msg) {
     ShowAlertToastByTitle(nil, msg);
 }
 
@@ -424,13 +424,12 @@ void ShowAlertToast(NSString *msg) {
  @param title 标题
  @param msg 提示信息
  */
-void ShowAlertToastByTitle(NSString *title, NSString *msg) {
+void ShowAlertToastByTitle(id title, id msg) {
     
     if (!title && !msg) return;
     
     [OKAlertController alertWithCallBackBlock:nil title:title message:msg cancelButtonName:nil otherButtonTitles: nil];
 }
-
 
 /**
  * iOS8之前系统，移除所有的已存在的 UIAlertView
@@ -528,8 +527,4 @@ void ShowAlertToastByTitle(NSString *title, NSString *msg) {
     return activityViewController;
 }
 
-
-
 @end
-
-

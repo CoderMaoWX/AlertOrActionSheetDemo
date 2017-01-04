@@ -27,17 +27,24 @@
     } title:nil message:@"普通弹框" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
 }
 
-
 /**
  * 普通弹框
  */
 - (IBAction)styleAction1:(UIButton *)sender
 {
+    NSString *titleStr = @"温馨提示";
+    NSString *msgStr = @"显示两个以上按钮";
+    
+    NSMutableAttributedString *titleMStr = [[NSMutableAttributedString alloc] initWithString:titleStr];
+    [titleMStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor redColor]} range:NSMakeRange(0, 2)];
+    
+    NSMutableAttributedString *msgMStr = [[NSMutableAttributedString alloc] initWithString:msgStr];
+    [msgMStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor greenColor]} range:NSMakeRange(2, 2)];
+    
     [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         ShowAlertToast(tip);
-        
-    } title:@"温馨提示" message:@"显示两个以上按钮" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
+    } title:titleMStr message:msgStr cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
 }
 
 
