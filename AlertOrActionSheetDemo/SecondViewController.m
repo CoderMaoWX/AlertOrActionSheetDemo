@@ -29,7 +29,7 @@
  */
 - (IBAction)styleAction0:(UIButton *)sender
 {
-    NSString *tipStr = sender ? @"普通弹框" : @"哈哈哈哈哈哈哈哈";
+    NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
     
     [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];

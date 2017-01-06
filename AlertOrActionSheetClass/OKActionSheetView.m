@@ -371,6 +371,25 @@ typedef enum : NSUInteger {
         contentView.height = CGRectGetMaxY(actionBtn.frame)+OKActionSheet_LineSpacing;
     }
     
+    //创建滚动底下提示文字
+    if (allbuttontitleArr.count > OKActionSheet_MaxButtonCount) {
+        
+        UILabel *topTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, titleHY+5, aboveView.width, 20)];
+        topTipLab.text = @"已经到顶了哦^_^";
+        topTipLab.textColor = OKActionSheet_LineColor;
+        topTipLab.textAlignment = NSTextAlignmentCenter;
+        topTipLab.font = [UIFont systemFontOfSize:12];
+        [aboveView insertSubview:topTipLab atIndex:0];
+        
+        
+        UILabel *bottomTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, aboveView.height-25, aboveView.width, 20)];
+        bottomTipLab.text = @"已经到没有了哦^_^";
+        bottomTipLab.textColor = OKActionSheet_LineColor;
+        bottomTipLab.textAlignment = NSTextAlignmentCenter;
+        bottomTipLab.font = [UIFont systemFontOfSize:12];
+        [aboveView insertSubview:bottomTipLab atIndex:0];
+    }
+    
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window endEditing:YES];
     [window addSubview:self];
@@ -505,6 +524,25 @@ typedef enum : NSUInteger {
     //设置弹框主视图的高度
     contentView.height = CGRectGetMaxY(cancelBtn.frame);
     
+    //创建滚动底下提示文字
+    if (allbuttontitleArr.count > OKActionSheet_MaxButtonCount) {
+        
+        UILabel *topTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, titleHY+5, contentView.width, 20)];
+        topTipLab.text = @"已经到顶了哦^_^";
+        topTipLab.textColor = OKActionSheet_LineColor;
+        topTipLab.textAlignment = NSTextAlignmentCenter;
+        topTipLab.font = [UIFont systemFontOfSize:12];
+        [contentView insertSubview:topTipLab atIndex:0];
+        
+        
+        UILabel *bottomTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, cancelBtn.y-30, contentView.width, 20)];
+        bottomTipLab.text = @"已经到没有了哦^_^";
+        bottomTipLab.textColor = OKActionSheet_LineColor;
+        bottomTipLab.textAlignment = NSTextAlignmentCenter;
+        bottomTipLab.font = [UIFont systemFontOfSize:12];
+        [contentView insertSubview:bottomTipLab atIndex:0];
+    }
+    
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     [window endEditing:YES];
     [window addSubview:self];
@@ -514,7 +552,7 @@ typedef enum : NSUInteger {
 #pragma mark -========================= 顶部创建直角的ActionSheet =============================
 
 /**
- *  创建直角的ActionSheet
+ *  顶部创建直角的ActionSheet
  */
 - (void)initTopSquareActionSheetUI:(UIView *)superView
                           position:(CGPoint)position
@@ -605,6 +643,25 @@ typedef enum : NSUInteger {
     
     //设置弹框主视图的起始位置
     contentView.y = -(scrollView.height);
+    
+    //创建滚动底下提示文字
+    if (allbuttontitleArr.count > OKActionSheet_MaxButtonCount) {
+        
+        UILabel *topTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 5, contentView.width, 20)];
+        topTipLab.text = @"已经到顶了哦^_^";
+        topTipLab.textColor = OKActionSheet_LineColor;
+        topTipLab.textAlignment = NSTextAlignmentCenter;
+        topTipLab.font = [UIFont systemFontOfSize:12];
+        [contentView insertSubview:topTipLab atIndex:0];
+        
+        
+        UILabel *bottomTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, contentView.height-25, contentView.width, 20)];
+        bottomTipLab.text = @"已经到没有了哦^_^";
+        bottomTipLab.textColor = OKActionSheet_LineColor;
+        bottomTipLab.textAlignment = NSTextAlignmentCenter;
+        bottomTipLab.font = [UIFont systemFontOfSize:12];
+        [contentView insertSubview:bottomTipLab atIndex:0];
+    }
     
     [superView endEditing:YES];
     [superView addSubview:self];
