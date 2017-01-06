@@ -16,15 +16,26 @@
 @implementation SecondViewController
 
 /**
+ * 测试同时弹多个提示框
+ */
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self styleAction0:nil];
+    [self styleAction0:[UIButton new]];
+}
+
+/**
  * 普通弹框
  */
 - (IBAction)styleAction0:(UIButton *)sender
 {
+    NSString *tipStr = sender ? @"普通弹框" : @"哈哈哈哈哈哈哈哈";
+    
     [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         ShowAlertToast(tip);
         
-    } title:nil message:@"普通弹框" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
+    } title:nil message:tipStr cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
 }
 
 /**
@@ -61,11 +72,6 @@
     } cancelBlock:^{
         ShowAlertToast(@"点击了取消按钮");
     }];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.navigationController pushViewController:[NSClassFromString(@"ThirdViewController") new] animated:YES];
 }
 
 @end

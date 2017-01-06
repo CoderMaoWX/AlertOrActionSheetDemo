@@ -130,8 +130,11 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
         
     } else { //ios8以后系统弹框用 UIAlertController
         
+        __block BOOL hasShowAlert = NO;
         //防止窗口上有多个弹框导致弹框显示异常，如果有则先移除旧的弹框
-        [OKAlertController dismissIOS8AllAlertController];
+        [OKAlertController dismissIOS8AllAlertController:^{
+            hasShowAlert = YES;
+        }];
         
         //获取按钮个数
         NSMutableArray *mutableOtherTitles = [NSMutableArray array];
@@ -264,8 +267,15 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
             }
         }
         
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        if(hasShowAlert){ //这里的延迟时间不能小于0.5
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+            });
+        } else {
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        }
         
         //如果弹框没有一个按钮，则自动延迟隐藏
         if(mutableOtherTitles.count == 0){
@@ -323,8 +333,11 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
         
     } else { //弹出ios8以上的系统框
         
+        __block BOOL hasShowAlert = NO; //如果窗口上已经有弹框,则后面的弹框延迟弹出,否则弹框会都消失
         //查看是否已经有弹框,有就先移除弹框, 否则多个弹框显示会异常
-        [OKAlertController dismissIOS8AllAlertController];
+        [OKAlertController dismissIOS8AllAlertController:^{
+            hasShowAlert = YES;
+        }];
         
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
         
@@ -394,8 +407,15 @@ static char const * const UIAlertViewKey        = "UIAlertViewKey";
             }
         }
         
-        UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        if(hasShowAlert){ //这里的延迟时间不能小于0.5
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+                [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+            });
+        } else {
+            UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+            [window.rootViewController presentViewController:alertController animated:YES completion:nil];
+        }
         
         //如果弹框没有一个按钮，则自动延迟隐藏
         if(!cancelTitle && !otherTitle){
@@ -448,16 +468,22 @@ void ShowAlertToastByTitle(id title, id msg) {
 /**
  * iOS8以后系统，移除所有的已存在的 UIAlertController
  */
-+ (void)dismissIOS8AllAlertController
++ (void)dismissIOS8AllAlertController:(void(^)())completion
 {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     UIViewController *hasPresentedVC = window.rootViewController.presentedViewController;
     if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
         [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
+        if (completion) {
+            completion();
+        }
     } else {
         hasPresentedVC = [self activityViewController];
         if (hasPresentedVC && [hasPresentedVC isKindOfClass:[UIAlertController class]]) {
             [hasPresentedVC dismissViewControllerAnimated:NO completion:nil];
+            if (completion) {
+                completion();
+            }
         }
     }
 }
