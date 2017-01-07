@@ -16,7 +16,6 @@
 		B57260371E14FF6F00B6A0AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B57260351E14FF6F00B6A0AA /* Main.storyboard */; };
 		B57260391E14FF6F00B6A0AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57260381E14FF6F00B6A0AA /* Assets.xcassets */; };
 		B572603C1E14FF6F00B6A0AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B572603A1E14FF6F00B6A0AA /* LaunchScreen.storyboard */; };
-		B572604C1E14FFC000B6A0AA /* UIButton+CCExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B57260451E14FFC000B6A0AA /* UIButton+CCExtension.m */; };
 		B572604D1E14FFC000B6A0AA /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = B57260471E14FFC000B6A0AA /* UIView+Extension.m */; };
 		B572604E1E14FFC000B6A0AA /* OKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57260491E14FFC000B6A0AA /* OKAlertController.m */; };
 		B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = B572604B1E14FFC000B6A0AA /* OKActionSheetView.m */; };
@@ -38,8 +37,6 @@
 		B57260381E14FF6F00B6A0AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B572603B1E14FF6F00B6A0AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B572603D1E14FF6F00B6A0AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B57260441E14FFC000B6A0AA /* UIButton+CCExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+CCExtension.h"; sourceTree = "<group>"; };
-		B57260451E14FFC000B6A0AA /* UIButton+CCExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+CCExtension.m"; sourceTree = "<group>"; };
 		B57260461E14FFC000B6A0AA /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		B57260471E14FFC000B6A0AA /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		B57260481E14FFC000B6A0AA /* OKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKAlertController.h; sourceTree = "<group>"; };
@@ -108,8 +105,6 @@
 		B57260431E14FFB200B6A0AA /* AlertOrActionSheetClass */ = {
 			isa = PBXGroup;
 			children = (
-				B57260441E14FFC000B6A0AA /* UIButton+CCExtension.h */,
-				B57260451E14FFC000B6A0AA /* UIButton+CCExtension.m */,
 				B57260461E14FFC000B6A0AA /* UIView+Extension.h */,
 				B57260471E14FFC000B6A0AA /* UIView+Extension.m */,
 				B57260481E14FFC000B6A0AA /* OKAlertController.h */,
@@ -195,7 +190,6 @@
 				B572604D1E14FFC000B6A0AA /* UIView+Extension.m in Sources */,
 				B572604E1E14FFC000B6A0AA /* OKAlertController.m in Sources */,
 				B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */,
-				B572604C1E14FFC000B6A0AA /* UIButton+CCExtension.m in Sources */,
 				B57260341E14FF6F00B6A0AA /* SecondViewController.m in Sources */,
 				A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */,
 				B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */,

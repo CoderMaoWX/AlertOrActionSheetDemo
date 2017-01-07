@@ -7,7 +7,6 @@
 //
 
 #import "OKActionSheetView.h"
-#import "UIButton+CCExtension.h"
 #import "UIView+Extension.h"
 
 #define RGB(r,g,b)                          [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f                                                                                 alpha:1.f]
@@ -313,7 +312,7 @@ typedef enum : NSUInteger {
         [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
         [actionBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [actionBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
-        [actionBtn setBackgroundColor:[UIColor groupTableViewBackgroundColor] forState:UIControlStateHighlighted];
+        [actionBtn setBackgroundImage:[self imageWithColor:[UIColor groupTableViewBackgroundColor]] forState:UIControlStateHighlighted];
         [actionBtn setExclusiveTouch:YES];
         
         //添加所有actionSheet按钮
@@ -463,7 +462,7 @@ typedef enum : NSUInteger {
         [actionBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [actionBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
         [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
-        [actionBtn setBackgroundColor:[UIColor groupTableViewBackgroundColor] forState:UIControlStateHighlighted];
+        [actionBtn setBackgroundImage:[self imageWithColor:[UIColor groupTableViewBackgroundColor]] forState:UIControlStateHighlighted];
         [scrollView addSubview:actionBtn];//把每个按钮添加到scrollView上
         [actionBtn setExclusiveTouch:YES];
         
@@ -509,7 +508,7 @@ typedef enum : NSUInteger {
     [cancelBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [cancelBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
     [cancelBtn setTitleColor:OKActionSheet_MainColor forState:0];
-    [cancelBtn setBackgroundColor:[UIColor groupTableViewBackgroundColor] forState:UIControlStateHighlighted];
+    [cancelBtn setBackgroundImage:[self imageWithColor:[UIColor groupTableViewBackgroundColor]] forState:UIControlStateHighlighted];
     [contentView addSubview:cancelBtn];
     [cancelBtn setExclusiveTouch:YES];
     
@@ -587,7 +586,7 @@ typedef enum : NSUInteger {
         [actionBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
         [actionBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
         [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
-        [actionBtn setBackgroundColor:[UIColor groupTableViewBackgroundColor] forState:UIControlStateHighlighted];
+        [actionBtn setBackgroundImage:[self imageWithColor:[UIColor groupTableViewBackgroundColor]] forState:UIControlStateHighlighted];
         actionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         actionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
         actionBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 15);
@@ -786,6 +785,20 @@ typedef enum : NSUInteger {
 - (void)dealloc
 {
     NSLog(@"%s",__func__);
+}
+
+- (UIImage *)imageWithColor:(UIColor *)color {
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 @end
