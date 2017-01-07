@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */; };
 		A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */; };
+		B55BE9F81E20D67E00442CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55BE9F71E20D67E00442CCE /* UIKit.framework */; };
 		B572602B1E14FF6F00B6A0AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602A1E14FF6F00B6A0AA /* main.m */; };
 		B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602D1E14FF6F00B6A0AA /* AppDelegate.m */; };
 		B57260311E14FF6F00B6A0AA /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57260301E14FF6F00B6A0AA /* FirstViewController.m */; };
@@ -25,6 +26,7 @@
 		A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
+		B55BE9F71E20D67E00442CCE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B57260261E14FF6F00B6A0AA /* AlertOrActionSheetDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertOrActionSheetDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572602A1E14FF6F00B6A0AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B572602C1E14FF6F00B6A0AA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -50,18 +52,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B55BE9F81E20D67E00442CCE /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B55BE9F61E20D67D00442CCE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B55BE9F71E20D67E00442CCE /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B572601D1E14FF6F00B6A0AA = {
 			isa = PBXGroup;
 			children = (
 				B57260431E14FFB200B6A0AA /* AlertOrActionSheetClass */,
 				B57260281E14FF6F00B6A0AA /* AlertOrActionSheetDemo */,
 				B57260271E14FF6F00B6A0AA /* Products */,
+				B55BE9F61E20D67D00442CCE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -315,7 +327,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AlertOrActionSheetDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.demo.AlertOrActionSheetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -327,7 +339,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AlertOrActionSheetDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.test.demo.AlertOrActionSheetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
