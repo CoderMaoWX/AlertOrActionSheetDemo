@@ -7,12 +7,9 @@
 //
 
 #import "OKActionSheetView.h"
-#import "UIView+Extension.h"
 
 #define RGB(r,g,b)                          [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f                                                                                 alpha:1.f]
-
-#define UIColorFromHex(hexValue)            ([UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0])
-
+#define UIColorFromHex(hexValue)            [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0]
 #define kFullScreenWidth                    ([UIScreen mainScreen].bounds.size.width)
 #define kFullScreenHeight                   ([UIScreen mainScreen].bounds.size.height)
 #define OKActionSheet_font(fontSize)        ([UIFont systemFontOfSize:fontSize])
@@ -64,6 +61,69 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) void(^cancelBlock)();
 
 @property (nonatomic, assign)CGPoint showTopPosition;
+@end
+
+@implementation UIView (Extension)
+
+- (void)setX:(CGFloat)x
+{
+    CGRect frame = self.frame;
+    frame.origin.x = x;
+    self.frame = frame;
+}
+
+- (void)setY:(CGFloat)y
+{
+    CGRect frame = self.frame;
+    frame.origin.y = y;
+    self.frame = frame;
+}
+
+- (CGFloat)x
+{
+    return self.frame.origin.x;
+}
+
+- (CGFloat)y
+{
+    return self.frame.origin.y;
+}
+
+- (void)setWidth:(CGFloat)width
+{
+    CGRect frame = self.frame;
+    frame.size.width = width;
+    self.frame = frame;
+}
+
+- (void)setHeight:(CGFloat)height
+{
+    CGRect frame = self.frame;
+    frame.size.height = height;
+    self.frame = frame;
+}
+
+- (CGFloat)height
+{
+    return self.frame.size.height;
+}
+
+- (CGFloat)width
+{
+    return self.frame.size.width;
+}
+
+- (void)setSize:(CGSize)size
+{
+    CGRect frame = self.frame;
+    frame.size = size;
+    self.frame = frame;
+}
+
+- (CGSize)size
+{
+    return self.frame.size;
+}
 @end
 
 @implementation OKActionSheetView
