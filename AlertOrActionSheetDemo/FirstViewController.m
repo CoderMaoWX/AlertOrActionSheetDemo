@@ -8,7 +8,7 @@
 
 #import "FirstViewController.h"
 #import "OKActionSheetView.h"
-#import "OKAlertController.h"
+#import "OKAlertView.h"
 
 
 @implementation FirstViewController

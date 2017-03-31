@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */; };
 		A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */; };
+		B5342A9B1E8E644300398C4C /* NSObject+OKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A961E8E644300398C4C /* NSObject+OKRuntime.m */; };
+		B5342A9C1E8E644300398C4C /* NSString+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A981E8E644300398C4C /* NSString+OKExtension.m */; };
+		B5342A9D1E8E644300398C4C /* UIButton+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A9A1E8E644300398C4C /* UIButton+OKExtension.m */; };
+		B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A9F1E8E67B100398C4C /* OKAlertView.m */; };
+		B5342AAB1E8E6C0500398C4C /* NSAttributedString+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342AAA1E8E6C0500398C4C /* NSAttributedString+OKExtension.m */; };
 		B55BE9F81E20D67E00442CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55BE9F71E20D67E00442CCE /* UIKit.framework */; };
 		B572602B1E14FF6F00B6A0AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602A1E14FF6F00B6A0AA /* main.m */; };
 		B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602D1E14FF6F00B6A0AA /* AppDelegate.m */; };
@@ -17,7 +22,6 @@
 		B57260371E14FF6F00B6A0AA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B57260351E14FF6F00B6A0AA /* Main.storyboard */; };
 		B57260391E14FF6F00B6A0AA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B57260381E14FF6F00B6A0AA /* Assets.xcassets */; };
 		B572603C1E14FF6F00B6A0AA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B572603A1E14FF6F00B6A0AA /* LaunchScreen.storyboard */; };
-		B572604E1E14FFC000B6A0AA /* OKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = B57260491E14FFC000B6A0AA /* OKAlertController.m */; };
 		B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = B572604B1E14FFC000B6A0AA /* OKActionSheetView.m */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +29,18 @@
 		A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
+		B5342A921E8E263200398C4C /* OKPublicDefine.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OKPublicDefine.pch; sourceTree = "<group>"; };
+		B5342A931E8E26C100398C4C /* PubilcFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubilcFile.h; sourceTree = "<group>"; };
+		B5342A951E8E644300398C4C /* NSObject+OKRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+OKRuntime.h"; sourceTree = "<group>"; };
+		B5342A961E8E644300398C4C /* NSObject+OKRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+OKRuntime.m"; sourceTree = "<group>"; };
+		B5342A971E8E644300398C4C /* NSString+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OKExtension.h"; sourceTree = "<group>"; };
+		B5342A981E8E644300398C4C /* NSString+OKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OKExtension.m"; sourceTree = "<group>"; };
+		B5342A991E8E644300398C4C /* UIButton+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+OKExtension.h"; sourceTree = "<group>"; };
+		B5342A9A1E8E644300398C4C /* UIButton+OKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+OKExtension.m"; sourceTree = "<group>"; };
+		B5342A9E1E8E67B100398C4C /* OKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKAlertView.h; sourceTree = "<group>"; };
+		B5342A9F1E8E67B100398C4C /* OKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKAlertView.m; sourceTree = "<group>"; };
+		B5342AA91E8E6C0500398C4C /* NSAttributedString+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+OKExtension.h"; sourceTree = "<group>"; };
+		B5342AAA1E8E6C0500398C4C /* NSAttributedString+OKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+OKExtension.m"; sourceTree = "<group>"; };
 		B55BE9F71E20D67E00442CCE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B57260261E14FF6F00B6A0AA /* AlertOrActionSheetDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertOrActionSheetDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572602A1E14FF6F00B6A0AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -38,8 +54,6 @@
 		B57260381E14FF6F00B6A0AA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B572603B1E14FF6F00B6A0AA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B572603D1E14FF6F00B6A0AA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B57260481E14FFC000B6A0AA /* OKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKAlertController.h; sourceTree = "<group>"; };
-		B57260491E14FFC000B6A0AA /* OKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKAlertController.m; sourceTree = "<group>"; };
 		B572604A1E14FFC000B6A0AA /* OKActionSheetView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKActionSheetView.h; sourceTree = "<group>"; };
 		B572604B1E14FFC000B6A0AA /* OKActionSheetView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKActionSheetView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -56,6 +70,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B5342A941E8E644300398C4C /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				B5342A951E8E644300398C4C /* NSObject+OKRuntime.h */,
+				B5342A961E8E644300398C4C /* NSObject+OKRuntime.m */,
+				B5342A971E8E644300398C4C /* NSString+OKExtension.h */,
+				B5342A981E8E644300398C4C /* NSString+OKExtension.m */,
+				B5342AA91E8E6C0500398C4C /* NSAttributedString+OKExtension.h */,
+				B5342AAA1E8E6C0500398C4C /* NSAttributedString+OKExtension.m */,
+				B5342A991E8E644300398C4C /* UIButton+OKExtension.h */,
+				B5342A9A1E8E644300398C4C /* UIButton+OKExtension.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		B55BE9F61E20D67D00442CCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +114,7 @@
 		B57260281E14FF6F00B6A0AA /* AlertOrActionSheetDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B5342A941E8E644300398C4C /* Category */,
 				B572602C1E14FF6F00B6A0AA /* AppDelegate.h */,
 				B572602D1E14FF6F00B6A0AA /* AppDelegate.m */,
 				B572602F1E14FF6F00B6A0AA /* FirstViewController.h */,
@@ -98,6 +128,8 @@
 				B57260381E14FF6F00B6A0AA /* Assets.xcassets */,
 				B572603A1E14FF6F00B6A0AA /* LaunchScreen.storyboard */,
 				B572603D1E14FF6F00B6A0AA /* Info.plist */,
+				B5342A931E8E26C100398C4C /* PubilcFile.h */,
+				B5342A921E8E263200398C4C /* OKPublicDefine.pch */,
 				B57260291E14FF6F00B6A0AA /* Supporting Files */,
 			);
 			path = AlertOrActionSheetDemo;
@@ -114,8 +146,8 @@
 		B57260431E14FFB200B6A0AA /* AlertOrActionSheetClass */ = {
 			isa = PBXGroup;
 			children = (
-				B57260481E14FFC000B6A0AA /* OKAlertController.h */,
-				B57260491E14FFC000B6A0AA /* OKAlertController.m */,
+				B5342A9E1E8E67B100398C4C /* OKAlertView.h */,
+				B5342A9F1E8E67B100398C4C /* OKAlertView.m */,
 				B572604A1E14FFC000B6A0AA /* OKActionSheetView.h */,
 				B572604B1E14FFC000B6A0AA /* OKActionSheetView.m */,
 			);
@@ -195,13 +227,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B572604E1E14FFC000B6A0AA /* OKAlertController.m in Sources */,
+				B5342A9B1E8E644300398C4C /* NSObject+OKRuntime.m in Sources */,
+				B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */,
 				B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */,
+				B5342A9C1E8E644300398C4C /* NSString+OKExtension.m in Sources */,
+				B5342A9D1E8E644300398C4C /* UIButton+OKExtension.m in Sources */,
 				B57260341E14FF6F00B6A0AA /* SecondViewController.m in Sources */,
 				A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */,
 				B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */,
 				B57260311E14FF6F00B6A0AA /* FirstViewController.m in Sources */,
 				B572602B1E14FF6F00B6A0AA /* main.m in Sources */,
+				B5342AAB1E8E6C0500398C4C /* NSAttributedString+OKExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +293,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "/Users/maowangxin/Documents/GitHub开源项目/AlertOrActionSheetDemo/AlertOrActionSheetDemo/OKPublicDefine.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -321,6 +358,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "/Users/maowangxin/Documents/GitHub开源项目/AlertOrActionSheetDemo/AlertOrActionSheetDemo/OKPublicDefine.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -385,6 +423,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "/Users/maowangxin/Documents/GitHub开源项目/AlertOrActionSheetDemo/AlertOrActionSheetDemo/OKPublicDefine.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -431,6 +470,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "/Users/maowangxin/Documents/GitHub开源项目/AlertOrActionSheetDemo/AlertOrActionSheetDemo/OKPublicDefine.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

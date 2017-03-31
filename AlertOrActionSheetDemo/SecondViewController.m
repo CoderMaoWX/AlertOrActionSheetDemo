@@ -7,7 +7,7 @@
 //
 
 #import "SecondViewController.h"
-#import "OKAlertController.h"
+#import "OKAlertView.h"
 
 @interface SecondViewController ()
 
@@ -31,7 +31,7 @@
 {
     NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
     
-    [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
+    [OKAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         ShowAlertToast(tip);
         
@@ -52,7 +52,7 @@
     NSMutableAttributedString *msgMStr = [[NSMutableAttributedString alloc] initWithString:msgStr];
     [msgMStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor greenColor]} range:NSMakeRange(2, 2)];
     
-    [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
+    [OKAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         ShowAlertToast(tip);
     } title:titleMStr message:msgStr cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
@@ -65,7 +65,7 @@
  */
 - (IBAction)styleAction2:(UIButton *)sender
 {
-    [OKAlertController inputAlertWithTitle:@"请输入" placeholder:@"输入弹框控件" cancelTitle:@"取消" otherTitle:@"确定" buttonBlock:^(NSString *inputText) {
+    [OKAlertView inputAlertWithTitle:@"请输入" placeholder:@"输入弹框控件" cancelTitle:@"取消" otherTitle:@"确定" buttonBlock:^(NSString *inputText) {
         NSString *tip = [NSString stringWithFormat:@"您输入了:\n%@",inputText];
         ShowAlertToast(tip);
         

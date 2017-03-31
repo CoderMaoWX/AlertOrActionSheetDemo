@@ -7,7 +7,7 @@
 //
 
 #import "ThirdViewController.h"
-#import "OKAlertController.h"
+#import "OKAlertView.h"
 
 @interface ThirdViewController ()
 
@@ -22,17 +22,12 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
+    [OKAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
         //这里直接调用self，不会对当前对象造成循环应用，因为弹框用的方法为类方法
-        [self showToast:buttonIndex];
+        NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
+        ShowAlertToast(tip);
         
     } title:@"温馨提示" message:@"显示两个以上按钮" cancelButtonName:nil otherButtonTitles:nil];
-}
-
-- (void)showToast:(NSInteger)buttonIndex
-{
-    NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
-    ShowAlertToast(tip);
 }
 
 - (void)dealloc
