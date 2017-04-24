@@ -16,62 +16,58 @@
 #ifndef ColorFromHex
 #define ColorFromHex(hexValue)                  ([UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0])
 #endif
-
 //获取系统版本
 #ifndef KsystemVersion
 #define KsystemVersion                          [[[UIDevice currentDevice] systemVersion] floatValue]
 #endif
-
 /** 屏幕宽度 */
 #ifndef kFullScreenWidth
 #define kFullScreenWidth                        ([UIScreen mainScreen].bounds.size.width)
 #endif
-
 //弹框字体大小
 #ifndef  FONTDEFAULT
-#define  FONTDEFAULT(fontSize)                   ([UIFont systemFontOfSize:fontSize])
+#define  FONTDEFAULT(fontSize)                  ([UIFont systemFontOfSize:fontSize])
 #endif
-
 //弹框粗体字体
 #ifndef  FONTBOLD
 #define  FONTBOLD(fontSize)                      ([UIFont boldSystemFontOfSize:fontSize])
 #endif
-
 //全局主色调颜色
 #ifndef  OK_Main_Color
 #define  OK_Main_Color                           ColorFromHex(0x8CC63F)
 #endif
-
 //按钮普通状态字体颜色
 #ifndef  OK_Btn_Normal_Title_Color
 #define  OK_Btn_Normal_Title_Color               ColorFromHex(0x323232)
 #endif
-
 //按钮高亮状态背景颜色
 #ifndef  OK_Btn_Highlighted_Bg_Color
 #define  OK_Btn_Highlighted_Bg_Color             [[UIColor groupTableViewBackgroundColor] colorWithAlphaComponent:0.5]
 #endif
-
 //按钮不可用状态背景颜色
 #ifndef  OK_Btn_Disabled_Bg_Color
 #define  OK_Btn_Disabled_Bg_Color                ColorFromHex(0xe2e2e2)
 #endif
-
 //弹框自动消失时间2秒
 #ifndef  OKToast_dismissTime
 #define  OKToast_dismissTime                     2.0
 #endif
-
 //按钮高度
 #ifndef  OK_BigBtn_Height
 #define  OK_BigBtn_Height                        44.0f
 #endif
-
 //弹框离屏幕边缘宽度
 #ifndef  OKAlertView_ScreenSpace
 #define  OKAlertView_ScreenSpace                 30
 #endif
-
+//弹框边缘圆角
+#ifndef  OKAlertView_CornerRadius
+#define  OKAlertView_CornerRadius                8
+#endif
+//弹框最小高度
+#ifndef  OKAlertView_Height
+#define  OKAlertView_Height                      60
+#endif
 
 @interface OKAlertView ()
 
@@ -104,25 +100,25 @@
                      otherButtonTitles:(id)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION
 {
     if(!title && !message){
-        NSLog(@"弹框至少要有一个文本信息");
+        
         return nil;
     }
     
     if (title && ![title isKindOfClass:[NSString class]] &&
         ![title isKindOfClass:[NSAttributedString class]]){
-        NSLog(@"弹框标题错误!");
+        
         return nil;
     }
     
     if (message && ![message isKindOfClass:[NSString class]] &&
         ![message isKindOfClass:[NSAttributedString class]]){
-        NSLog(@"弹框提示信息错误");
+        
         return nil;
     }
     
     if (cancelButtonName && ![cancelButtonName isKindOfClass:[NSString class]] &&
         ![cancelButtonName isKindOfClass:[NSAttributedString class]]){
-        NSLog(@"取消按钮标题错误");
+        
         return nil;
     }
     
@@ -193,7 +189,7 @@
     //移除window上已存在的OKAlertView
     [self removeOkAlertFromWindow];
     
-    CGRect rect = CGRectMake(OKAlertView_ScreenSpace, 0, kFullScreenWidth-OKAlertView_ScreenSpace*2, 60);
+    CGRect rect = CGRectMake(OKAlertView_ScreenSpace, 0, kFullScreenWidth-OKAlertView_ScreenSpace*2, 60);    
     UIView *contentView = [[UIView alloc] initWithFrame:rect];
     contentView.backgroundColor = [UIColor whiteColor];
     contentView.layer.cornerRadius = 12;
@@ -234,7 +230,7 @@
     UILabel *messageLab = nil;
     if (message) {
         messageLab = [[UILabel alloc] init];
-        messageLab.backgroundColor = [UIColor whiteColor];
+        messageLab.backgroundColor = [UIColor clearColor];
         [messageLab setTextColor:OK_Btn_Normal_Title_Color];
         [messageLab setTextAlignment:NSTextAlignmentCenter];
         [messageLab setFont:FONTDEFAULT(14)];
@@ -296,8 +292,8 @@
             [actionBtn.titleLabel setFont:FONTDEFAULT(16)];
             [actionBtn addTarget:self action:@selector(alertBtnAction:) forControlEvents:UIControlEventTouchUpInside];
             [actionBtn setTitleColor:OK_Btn_Normal_Title_Color forState:0];
-            [actionBtn setBackgroundColor:OK_Btn_Disabled_Bg_Color forState:UIControlStateDisabled];
-            [actionBtn setBackgroundColor:OK_Btn_Highlighted_Bg_Color forState:UIControlStateHighlighted];
+            [actionBtn setBackgroundImage:[self ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
+            [actionBtn setBackgroundImage:[self ok_imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
             [actionBtn setExclusiveTouch:YES];
             [contentView addSubview:actionBtn];
             
@@ -427,7 +423,7 @@
  */
 - (void)alertBtnAction:(UIButton *)actionBtn
 {
-    NSLog(@"点击了ActionSheet弹框按钮==%zd",actionBtn.tag);
+    
     if (self.alertCallBackBlock) {
         self.alertCallBackBlock(actionBtn.tag);
     }
@@ -617,6 +613,21 @@ void ShowAlertToastByTitle(id title, id msg) {
     }
     
     return alertController;
+}
+
+/**
+ * 为了不引入其他类，直接在这里设置颜色图片
+ */
+- (UIImage *)ok_imageWithColor:(UIColor *)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 - (void)dealloc
