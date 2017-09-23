@@ -58,4 +58,16 @@
     } WithTitle:@"测试底部按钮" cancelButtonTitle:@"取消" otherButtonTitleArr:@[@"按钮1",@"按钮2",@"按钮3",@"按钮4",@"按钮5",@"按钮6",@"按钮7",@"按钮8"]];
 }
 
+/**
+ 判断传入一个数大于10
+ */
+- (BOOL)judgeNumGreaterTen:(NSInteger)number
+{
+    if (number > 10) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 @end
