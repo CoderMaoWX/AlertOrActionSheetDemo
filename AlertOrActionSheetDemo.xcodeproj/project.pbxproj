@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */; };
 		A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */; };
-		A399EB761F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A399EB751F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m */; };
 		B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A9F1E8E67B100398C4C /* OKAlertView.m */; };
 		B55BE9F81E20D67E00442CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55BE9F71E20D67E00442CCE /* UIKit.framework */; };
 		B572602B1E14FF6F00B6A0AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602A1E14FF6F00B6A0AA /* main.m */; };
@@ -22,23 +21,10 @@
 		B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */ = {isa = PBXBuildFile; fileRef = B572604B1E14FFC000B6A0AA /* OKActionSheetView.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A399EB781F76BAE40033B1C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B572601E1E14FF6F00B6A0AA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B57260251E14FF6F00B6A0AA;
-			remoteInfo = AlertOrActionSheetDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
 		A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
-		A399EB731F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlertOrActionSheetDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A399EB751F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlertOrActionSheetDemoTests.m; sourceTree = "<group>"; };
-		A399EB771F76BAE40033B1C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5342A921E8E263200398C4C /* OKPublicDefine.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OKPublicDefine.pch; sourceTree = "<group>"; };
 		B5342A931E8E26C100398C4C /* PubilcFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubilcFile.h; sourceTree = "<group>"; };
 		B5342A9E1E8E67B100398C4C /* OKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKAlertView.h; sourceTree = "<group>"; };
@@ -61,13 +47,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A399EB701F76BAE40033B1C4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B57260231E14FF6F00B6A0AA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,15 +58,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A399EB741F76BAE40033B1C4 /* AlertOrActionSheetDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				A399EB751F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m */,
-				A399EB771F76BAE40033B1C4 /* Info.plist */,
-			);
-			path = AlertOrActionSheetDemoTests;
-			sourceTree = "<group>";
-		};
 		B55BE9F61E20D67D00442CCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,7 +71,6 @@
 			children = (
 				B57260431E14FFB200B6A0AA /* AlertOrActionSheetClass */,
 				B57260281E14FF6F00B6A0AA /* AlertOrActionSheetDemo */,
-				A399EB741F76BAE40033B1C4 /* AlertOrActionSheetDemoTests */,
 				B57260271E14FF6F00B6A0AA /* Products */,
 				B55BE9F61E20D67D00442CCE /* Frameworks */,
 			);
@@ -111,7 +80,6 @@
 			isa = PBXGroup;
 			children = (
 				B57260261E14FF6F00B6A0AA /* AlertOrActionSheetDemo.app */,
-				A399EB731F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -161,24 +129,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A399EB721F76BAE40033B1C4 /* AlertOrActionSheetDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A399EB7A1F76BAE40033B1C4 /* Build configuration list for PBXNativeTarget "AlertOrActionSheetDemoTests" */;
-			buildPhases = (
-				A399EB6F1F76BAE40033B1C4 /* Sources */,
-				A399EB701F76BAE40033B1C4 /* Frameworks */,
-				A399EB711F76BAE40033B1C4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A399EB791F76BAE40033B1C4 /* PBXTargetDependency */,
-			);
-			name = AlertOrActionSheetDemoTests;
-			productName = AlertOrActionSheetDemoTests;
-			productReference = A399EB731F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		B57260251E14FF6F00B6A0AA /* AlertOrActionSheetDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B57260401E14FF6F00B6A0AA /* Build configuration list for PBXNativeTarget "AlertOrActionSheetDemo" */;
@@ -205,16 +155,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = okdeer;
 				TargetAttributes = {
-					A399EB721F76BAE40033B1C4 = {
-						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = P8FFNR95EQ;
-						ProvisioningStyle = Automatic;
-						TestTargetID = B57260251E14FF6F00B6A0AA;
-					};
 					B57260251E14FF6F00B6A0AA = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = YKA3Z85KP7;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = P8FFNR95EQ;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -232,19 +176,11 @@
 			projectRoot = "";
 			targets = (
 				B57260251E14FF6F00B6A0AA /* AlertOrActionSheetDemo */,
-				A399EB721F76BAE40033B1C4 /* AlertOrActionSheetDemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A399EB711F76BAE40033B1C4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B57260241E14FF6F00B6A0AA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,14 +195,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A399EB6F1F76BAE40033B1C4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A399EB761F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B57260221E14FF6F00B6A0AA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -282,14 +210,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A399EB791F76BAE40033B1C4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B57260251E14FF6F00B6A0AA /* AlertOrActionSheetDemo */;
-			targetProxy = A399EB781F76BAE40033B1C4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B57260351E14FF6F00B6A0AA /* Main.storyboard */ = {
@@ -311,126 +231,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A399EB7B1F76BAE40033B1C4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P8FFNR95EQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest.AlertOrActionSheetDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlertOrActionSheetDemo.app/AlertOrActionSheetDemo";
-			};
-			name = Debug;
-		};
-		A399EB7C1F76BAE40033B1C4 /* Develop */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P8FFNR95EQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest.AlertOrActionSheetDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlertOrActionSheetDemo.app/AlertOrActionSheetDemo";
-			};
-			name = Develop;
-		};
-		A399EB7D1F76BAE40033B1C4 /* Beta */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P8FFNR95EQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest.AlertOrActionSheetDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlertOrActionSheetDemo.app/AlertOrActionSheetDemo";
-			};
-			name = Beta;
-		};
-		A399EB7E1F76BAE40033B1C4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = P8FFNR95EQ;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest.AlertOrActionSheetDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AlertOrActionSheetDemo.app/AlertOrActionSheetDemo";
-			};
-			name = Release;
-		};
 		B53355E21E36025B00ADB1FC /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -485,16 +285,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = AlertOrActionSheetDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62059c70-85ae-4f12-afce-2e1f101fc05c";
-				PROVISIONING_PROFILE_SPECIFIER = lukeInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Beta;
@@ -553,16 +353,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = AlertOrActionSheetDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62059c70-85ae-4f12-afce-2e1f101fc05c";
-				PROVISIONING_PROFILE_SPECIFIER = lukeInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Develop;
@@ -664,16 +464,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = AlertOrActionSheetDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62059c70-85ae-4f12-afce-2e1f101fc05c";
-				PROVISIONING_PROFILE_SPECIFIER = lukeInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -683,16 +483,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				INFOPLIST_FILE = AlertOrActionSheetDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.handlink.lukeTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.test.luke;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "62059c70-85ae-4f12-afce-2e1f101fc05c";
-				PROVISIONING_PROFILE_SPECIFIER = lukeInHouse;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -700,17 +500,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A399EB7A1F76BAE40033B1C4 /* Build configuration list for PBXNativeTarget "AlertOrActionSheetDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A399EB7B1F76BAE40033B1C4 /* Debug */,
-				A399EB7C1F76BAE40033B1C4 /* Develop */,
-				A399EB7D1F76BAE40033B1C4 /* Beta */,
-				A399EB7E1F76BAE40033B1C4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		B57260211E14FF6F00B6A0AA /* Build configuration list for PBXProject "AlertOrActionSheetDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -65,7 +65,7 @@
  */
 - (IBAction)styleAction2:(UIButton *)sender
 {
-    [OKAlertView inputAlertWithTitle:@"请输入" placeholder:@"输入弹框控件" cancelTitle:@"取消" otherTitle:@"确定" buttonBlock:^(NSString *inputText) {
+    [OKAlertView inputAlertWithTitle:@"请输入" placeholder:@"输入弹框控件" cancelTitle:@"取消" otherTitle:@"确定" keyboardType:UIKeyboardTypeDefault buttonBlock:^(NSString *inputText) {
         NSString *tip = [NSString stringWithFormat:@"您输入了:\n%@",inputText];
         ShowAlertToast(tip);
         
