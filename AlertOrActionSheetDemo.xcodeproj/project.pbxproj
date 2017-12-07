@@ -10,11 +10,7 @@
 		A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */; };
 		A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */; };
 		A399EB761F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A399EB751F76BAE40033B1C4 /* AlertOrActionSheetDemoTests.m */; };
-		B5342A9B1E8E644300398C4C /* NSObject+OKRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A961E8E644300398C4C /* NSObject+OKRuntime.m */; };
-		B5342A9C1E8E644300398C4C /* NSString+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A981E8E644300398C4C /* NSString+OKExtension.m */; };
-		B5342A9D1E8E644300398C4C /* UIButton+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A9A1E8E644300398C4C /* UIButton+OKExtension.m */; };
 		B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A9F1E8E67B100398C4C /* OKAlertView.m */; };
-		B5342AAB1E8E6C0500398C4C /* NSAttributedString+OKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342AAA1E8E6C0500398C4C /* NSAttributedString+OKExtension.m */; };
 		B55BE9F81E20D67E00442CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55BE9F71E20D67E00442CCE /* UIKit.framework */; };
 		B572602B1E14FF6F00B6A0AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602A1E14FF6F00B6A0AA /* main.m */; };
 		B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602D1E14FF6F00B6A0AA /* AppDelegate.m */; };
@@ -45,16 +41,8 @@
 		A399EB771F76BAE40033B1C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5342A921E8E263200398C4C /* OKPublicDefine.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OKPublicDefine.pch; sourceTree = "<group>"; };
 		B5342A931E8E26C100398C4C /* PubilcFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubilcFile.h; sourceTree = "<group>"; };
-		B5342A951E8E644300398C4C /* NSObject+OKRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+OKRuntime.h"; sourceTree = "<group>"; };
-		B5342A961E8E644300398C4C /* NSObject+OKRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+OKRuntime.m"; sourceTree = "<group>"; };
-		B5342A971E8E644300398C4C /* NSString+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+OKExtension.h"; sourceTree = "<group>"; };
-		B5342A981E8E644300398C4C /* NSString+OKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+OKExtension.m"; sourceTree = "<group>"; };
-		B5342A991E8E644300398C4C /* UIButton+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+OKExtension.h"; sourceTree = "<group>"; };
-		B5342A9A1E8E644300398C4C /* UIButton+OKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+OKExtension.m"; sourceTree = "<group>"; };
 		B5342A9E1E8E67B100398C4C /* OKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKAlertView.h; sourceTree = "<group>"; };
 		B5342A9F1E8E67B100398C4C /* OKAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OKAlertView.m; sourceTree = "<group>"; };
-		B5342AA91E8E6C0500398C4C /* NSAttributedString+OKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+OKExtension.h"; sourceTree = "<group>"; };
-		B5342AAA1E8E6C0500398C4C /* NSAttributedString+OKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+OKExtension.m"; sourceTree = "<group>"; };
 		B55BE9F71E20D67E00442CCE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B57260261E14FF6F00B6A0AA /* AlertOrActionSheetDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlertOrActionSheetDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572602A1E14FF6F00B6A0AA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -100,21 +88,6 @@
 			path = AlertOrActionSheetDemoTests;
 			sourceTree = "<group>";
 		};
-		B5342A941E8E644300398C4C /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				B5342A951E8E644300398C4C /* NSObject+OKRuntime.h */,
-				B5342A961E8E644300398C4C /* NSObject+OKRuntime.m */,
-				B5342A971E8E644300398C4C /* NSString+OKExtension.h */,
-				B5342A981E8E644300398C4C /* NSString+OKExtension.m */,
-				B5342AA91E8E6C0500398C4C /* NSAttributedString+OKExtension.h */,
-				B5342AAA1E8E6C0500398C4C /* NSAttributedString+OKExtension.m */,
-				B5342A991E8E644300398C4C /* UIButton+OKExtension.h */,
-				B5342A9A1E8E644300398C4C /* UIButton+OKExtension.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
 		B55BE9F61E20D67D00442CCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +119,6 @@
 		B57260281E14FF6F00B6A0AA /* AlertOrActionSheetDemo */ = {
 			isa = PBXGroup;
 			children = (
-				B5342A941E8E644300398C4C /* Category */,
 				B572602C1E14FF6F00B6A0AA /* AppDelegate.h */,
 				B572602D1E14FF6F00B6A0AA /* AppDelegate.m */,
 				B572602F1E14FF6F00B6A0AA /* FirstViewController.h */,
@@ -235,8 +207,8 @@
 				TargetAttributes = {
 					A399EB721F76BAE40033B1C4 = {
 						CreatedOnToolsVersion = 9.0;
-						DevelopmentTeam = YKA3Z85KP7;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = P8FFNR95EQ;
+						ProvisioningStyle = Automatic;
 						TestTargetID = B57260251E14FF6F00B6A0AA;
 					};
 					B57260251E14FF6F00B6A0AA = {
@@ -299,17 +271,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5342A9B1E8E644300398C4C /* NSObject+OKRuntime.m in Sources */,
 				B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */,
 				B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */,
-				B5342A9C1E8E644300398C4C /* NSString+OKExtension.m in Sources */,
-				B5342A9D1E8E644300398C4C /* UIButton+OKExtension.m in Sources */,
 				B57260341E14FF6F00B6A0AA /* SecondViewController.m in Sources */,
 				A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */,
 				B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */,
 				B57260311E14FF6F00B6A0AA /* FirstViewController.m in Sources */,
 				B572602B1E14FF6F00B6A0AA /* main.m in Sources */,
-				B5342AAB1E8E6C0500398C4C /* NSAttributedString+OKExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,9 +326,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -388,9 +356,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -418,9 +386,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -448,9 +416,9 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = YKA3Z85KP7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = P8FFNR95EQ;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = AlertOrActionSheetDemoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;

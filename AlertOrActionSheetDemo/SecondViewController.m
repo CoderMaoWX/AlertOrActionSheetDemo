@@ -31,11 +31,11 @@
 {
     NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
     
-    [OKAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
+    [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         ShowAlertToast(tip);
         
-    } title:nil message:tipStr cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
+    } title:nil message:tipStr cancelButtonTitle:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
 }
 
 /**
@@ -52,10 +52,10 @@
     NSMutableAttributedString *msgMStr = [[NSMutableAttributedString alloc] initWithString:msgStr];
     [msgMStr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12],NSForegroundColorAttributeName:[UIColor greenColor]} range:NSMakeRange(2, 2)];
     
-    [OKAlertView alertWithCallBackBlock:^(NSInteger buttonIndex) {
+    [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         ShowAlertToast(tip);
-    } title:titleMStr message:msgStr cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
+    } title:titleMStr message:msgStr cancelButtonTitle:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
 }
 
 

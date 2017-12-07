@@ -8,27 +8,52 @@
 
 #import <UIKit/UIKit.h>
 
-
 typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
 
 
 @interface OKAlertView : UIView
 
+@property (nonatomic,strong) UIColor *mainColor UI_APPEARANCE_SELECTOR;
+
 /**
- iOS的系统弹框, <已兼容iOS7的UIAlertView>;
+ 自定义的AlertView弹框
  注意:如果有设置cancelButton, 则取消按钮的buttonIndex为:0, 其他otherButton的Index依次加1;
  
- @param alertViewCallBackBlock 点击按钮回调Block
+ @param alertWithCallBlock     点击按钮回调Block
  @param title                  弹框标题->(支持 NSString、NSAttributedString)
  @param message                弹框描述->(支持 NSString、NSAttributedString)
- @param cancelButtonName       取消按钮标题->(支持 NSString、NSAttributedString)
+ @param cancelButtonTitle      取消按钮标题->(支持 NSString、NSAttributedString)
  @param otherButtonTitles      其他按钮标题->(支持 NSString、NSAttributedString)
  */
-+ (instancetype)alertWithCallBackBlock:(OKAlertViewCallBackBlock)alertViewCallBackBlock
-                                 title:(id)title
-                               message:(id)message
-                      cancelButtonName:(id)cancelButtonName
-                     otherButtonTitles:(id)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION;
++ (instancetype)alertWithCallBlock:(OKAlertViewCallBackBlock)alertWithCallBlock
+                             title:(id)title
+                           message:(id)message
+                 cancelButtonTitle:(id)cancelButtonTitle
+                 otherButtonTitles:(id)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION;
+
+
+/**
+ 使用方式同上个方法, (效果和上面的方法一样,c函数的方式调用代码量更少)
+ 
+ @param title 弹框标题->(支持 NSString、NSAttributedString)
+ @param message 弹框描述->(支持 NSString、NSAttributedString)
+ @param cancelButtonTitle 取消按钮标题->(支持 NSString、NSAttributedString)
+ @param otherButtonTitles 其他按钮标题->(支持 NSString、NSAttributedString)
+ @param alertWithCallBlock 点击按钮回调Block
+ @return 弹框实例对象
+ */
+OKAlertView* ShowAlertView(id title, id message, id cancelButtonTitle, NSArray *otherButtonTitles, OKAlertViewCallBackBlock alertWithCallBlock);
+
+
+/**
+ * 单个按钮提示Alert弹框, 没有事件只做提示使用
+ *
+ @param title 弹框标题->(支持 NSString、NSAttributedString)
+ @param message 弹框描述->(支持 NSString、NSAttributedString)
+ @param cancelButtonTitle 取消按钮标题->(支持 NSString、NSAttributedString)
+ */
+void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle);
+
 
 /**
  *  获取OKAlertView上的指定按钮
@@ -42,6 +67,7 @@ typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
  *  注意:index为所有按钮数组的角标(cancelButton的角标为0 ,其他依次加1)
  */
 - (void)setButtonTitleToIndex:(NSInteger)index title:(id)title enable:(BOOL)enable;
+
 
 /**
  *  2秒自动消失的系统Alert弹框
@@ -61,9 +87,14 @@ void ShowAlertToastByTitle(id title, id msg);
 
 
 /**
- * 显示请求的错误提示信息
+ * 指定时间消失Alert弹框
+ 
+ * @param title         提示标题->(支持 NSString、NSAttributedString)
+ * @param msg           提示信息->(支持 NSString、NSAttributedString)
+ * @param duration      指定消失时间
+ * @param dismissBlock  消失回调
  */
-+ (void)showMsgWithError:(NSError *)error defaultMsg:(NSString *)defaultMsg;
+void ShowAlertToastDelay(id title, id msg, NSTimeInterval duration, void(^dismissBlock)(void));
 
 
 #pragma mark - 带输入框的系统弹框
@@ -82,7 +113,9 @@ void ShowAlertToastByTitle(id title, id msg);
                                placeholder:(NSString *)placeholder
                                cancelTitle:(NSString *)cancelTitle
                                 otherTitle:(NSString *)otherTitle
+                              keyboardType:(UIKeyboardType)keyboardType
                                buttonBlock:(void (^)(NSString *inputText))otherBlock
-                               cancelBlock:(void (^)())cancelBlock;
+                               cancelBlock:(void (^)(void))cancelBlock;
 
 @end
+

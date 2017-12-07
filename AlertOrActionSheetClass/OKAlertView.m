@@ -7,67 +7,67 @@
 //
 
 #import "OKAlertView.h"
-#import "NSObject+OKRuntime.h"
-#import "NSString+OKExtension.h"
-#import "UIButton+OKExtension.h"
-#import "NSAttributedString+OKExtension.h"
+#import <objc/message.h>
 
 //进制颜色转换
 #ifndef ColorFromHex
 #define ColorFromHex(hexValue)                  ([UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0])
 #endif
-//获取系统版本
-#ifndef KsystemVersion
-#define KsystemVersion                          [[[UIDevice currentDevice] systemVersion] floatValue]
-#endif
+
 /** 屏幕宽度 */
 #ifndef kFullScreenWidth
 #define kFullScreenWidth                        ([UIScreen mainScreen].bounds.size.width)
 #endif
+
 //弹框字体大小
 #ifndef  FONTDEFAULT
 #define  FONTDEFAULT(fontSize)                  ([UIFont systemFontOfSize:fontSize])
 #endif
-//弹框粗体字体
-#ifndef  FONTBOLD
-#define  FONTBOLD(fontSize)                      ([UIFont boldSystemFontOfSize:fontSize])
+
+//取消按钮主色调颜色
+#ifndef  OKAlertView_MainColor
+#define  OKAlertView_MainColor                  ColorFromHex(0x2F7AFF)
 #endif
-//全局主色调颜色
-#ifndef  OK_Main_Color
-#define  OK_Main_Color                           ColorFromHex(0x8CC63F)
-#endif
+
 //按钮普通状态字体颜色
-#ifndef  OK_Btn_Normal_Title_Color
-#define  OK_Btn_Normal_Title_Color               ColorFromHex(0x323232)
+#ifndef  OKAlertView_BtnTitleNorColor
+#define  OKAlertView_BtnTitleNorColor           ColorFromHex(0x323232)
 #endif
+
 //按钮高亮状态背景颜色
-#ifndef  OK_Btn_Highlighted_Bg_Color
-#define  OK_Btn_Highlighted_Bg_Color             [[UIColor groupTableViewBackgroundColor] colorWithAlphaComponent:0.5]
+#ifndef  OKAlertView_BtnBgHighColor
+#define  OKAlertView_BtnBgHighColor             [[UIColor groupTableViewBackgroundColor] colorWithAlphaComponent:0.5]
 #endif
+
 //按钮不可用状态背景颜色
-#ifndef  OK_Btn_Disabled_Bg_Color
-#define  OK_Btn_Disabled_Bg_Color                ColorFromHex(0xe2e2e2)
+#ifndef  OKAlertView_BtnBgDisabledColor
+#define  OKAlertView_BtnBgDisabledColor         ColorFromHex(0xe2e2e2)
 #endif
+
 //弹框自动消失时间2秒
-#ifndef  OKToast_dismissTime
-#define  OKToast_dismissTime                     2.0
+#ifndef  OKAlertView_ToastDismissTime
+#define  OKAlertView_ToastDismissTime           2.0
 #endif
+
 //按钮高度
-#ifndef  OK_BigBtn_Height
-#define  OK_BigBtn_Height                        44.0f
+#ifndef  OKAlertView_BigBtnHeight
+#define  OKAlertView_BigBtnHeight               44.0f
 #endif
+
 //弹框离屏幕边缘宽度
 #ifndef  OKAlertView_ScreenSpace
-#define  OKAlertView_ScreenSpace                 30
+#define  OKAlertView_ScreenSpace    ([UIScreen mainScreen].bounds.size.width<375 ? 25 : kFullScreenWidth*0.14)
 #endif
-//弹框边缘圆角
-#ifndef  OKAlertView_CornerRadius
-#define  OKAlertView_CornerRadius                8
-#endif
-//弹框最小高度
-#ifndef  OKAlertView_Height
-#define  OKAlertView_Height                      60
-#endif
+
+//Label与contenView的间距
+#define  OKAlertView_KitMargin                  20
+//线条高度
+#define  OKAlertView_LineHeight                 (1/[UIScreen mainScreen].scale)
+//线条颜色
+#define  OKAlertView_LineColor                  ColorFromHex(0xe2e2e2)
+//文本颜色
+#define  OKAlertView_LabelColor                 [UIColor blackColor]
+
 
 @interface OKAlertView ()
 
@@ -79,66 +79,120 @@
 @property (nonatomic, copy) OKAlertViewCallBackBlock alertCallBackBlock;
 /** 取消按钮标题 */
 @property (nonatomic, strong) NSString *cancelTitle;
+/** AlertView消失时间 */
+@property (nonatomic, assign) NSTimeInterval dismissDuration;
+/** AlertView消失回调 */
+@property (nonatomic, copy) void (^dismissBlock)(void);
 @end
 
 @implementation OKAlertView
 
 /**
- iOS的系统弹框, <已兼容iOS7的UIAlertView>;
+ 自定义的UIAlertView弹框
  注意:如果有设置cancelButton, 则取消按钮的buttonIndex为:0, 其他otherButton的Index依次加1;
  
- @param alertViewCallBackBlock 点击按钮回调Block
+ @param alertWithCallBlock     点击按钮回调Block
  @param title                  弹框标题->(支持 NSString、NSAttributedString)
  @param message                弹框描述->(支持 NSString、NSAttributedString)
- @param cancelButtonName       取消按钮标题，<只能设置NSString>
+ @param cancelButtonTitle       取消按钮标题，<只能设置NSString>
  @param otherButtonTitles      其他按钮标题，<只能设置NSString>
  */
-+ (instancetype)alertWithCallBackBlock:(OKAlertViewCallBackBlock)alertViewCallBackBlock
-                                 title:(id)title
-                               message:(id)message
-                      cancelButtonName:(id)cancelButtonName
-                     otherButtonTitles:(id)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION
++ (instancetype)alertWithCallBlock:(OKAlertViewCallBackBlock)alertWithCallBlock
+                             title:(id)title
+                           message:(id)message
+                 cancelButtonTitle:(id)cancelButtonTitle
+                 otherButtonTitles:(id)otherButtonTitles, ...NS_REQUIRES_NIL_TERMINATION
 {
-    if(!title && !message){
-        
-        return nil;
-    }
-    
-    if (title && ![title isKindOfClass:[NSString class]] &&
-        ![title isKindOfClass:[NSAttributedString class]]){
-        
-        return nil;
-    }
-    
-    if (message && ![message isKindOfClass:[NSString class]] &&
-        ![message isKindOfClass:[NSAttributedString class]]){
-        
-        return nil;
-    }
-    
-    if (cancelButtonName && ![cancelButtonName isKindOfClass:[NSString class]] &&
-        ![cancelButtonName isKindOfClass:[NSAttributedString class]]){
-        
-        return nil;
-    }
+    BOOL canShow = [self judgeCanShowAlert:cancelButtonTitle
+                                   message:message
+                                     title:title];
+    if(!canShow) return nil;
     
     //包装按钮标题数组
-    NSMutableArray *mutableOtherTitles = [NSMutableArray array];
+    NSMutableArray *otherTitleArr = [NSMutableArray array];
     va_list otherButtonTitleList;
     va_start(otherButtonTitleList, otherButtonTitles);
     {
         for (NSString *otherButtonTitle = otherButtonTitles; otherButtonTitle != nil; otherButtonTitle = va_arg(otherButtonTitleList, NSString *)) {
-            [mutableOtherTitles addObject:otherButtonTitle];
+            [otherTitleArr addObject:otherButtonTitle];
         }
     }
     va_end(otherButtonTitleList);
     
-    return [[OKAlertView alloc] initWithFrame:[UIScreen mainScreen].bounds
+    CGRect rect = [UIScreen mainScreen].bounds;
+    return [[OKAlertView alloc] initWithFrame:rect
                                         title:title
                                       message:message
-                            cancelButtontitle:cancelButtonName
-                          otherButtonTitleArr:mutableOtherTitles
-                                callBackBlock:alertViewCallBackBlock];
+                            cancelButtonTitle:cancelButtonTitle
+                            otherButtonTitles:otherTitleArr
+                                callBackBlock:alertWithCallBlock];
+}
+
+/**
+ 使用方式同上个方法, (效果和上面的方法一样,c函数的方式调用代码量更少)
+ 
+ @param title 弹框标题->(支持 NSString、NSAttributedString)
+ @param message 弹框描述->(支持 NSString、NSAttributedString)
+ @param cancelButtonTitle 取消按钮标题->(支持 NSString、NSAttributedString)
+ @param otherButtonTitles 其他按钮标题->(支持 NSString、NSAttributedString)
+ @param alertWithCallBlock 点击按钮回调Block
+ @return 弹框实例对象
+ */
+OKAlertView* ShowAlertView(id title, id message, id cancelButtonTitle, NSArray *otherButtonTitles,  OKAlertViewCallBackBlock alertWithCallBlock)
+{
+    BOOL canShow = [OKAlertView judgeCanShowAlert:cancelButtonTitle
+                                          message:message
+                                            title:title];
+    if(!canShow) return nil;
+    
+    CGRect rect = [UIScreen mainScreen].bounds;
+    return [[OKAlertView alloc] initWithFrame:rect
+                                        title:title
+                                      message:message
+                            cancelButtonTitle:cancelButtonTitle
+                            otherButtonTitles:otherButtonTitles
+                                callBackBlock:alertWithCallBlock];
+}
+
+/**
+ * 单个按钮提示Alert弹框, 没有事件只做提示使用
+ *
+ @param title 弹框标题->(支持 NSString、NSAttributedString)
+ @param message 弹框描述->(支持 NSString、NSAttributedString)
+ @param cancelButtonTitle 取消按钮标题->(支持 NSString、NSAttributedString)
+ */
+void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
+    [OKAlertView alertWithCallBlock:nil
+                              title:title
+                            message:message
+                  cancelButtonTitle:cancelButtonTitle
+                  otherButtonTitles: nil];
+}
+
+/**
+ 根据条件判断能否显示弹框
+ */
++ (BOOL)judgeCanShowAlert:(id)cancelButtonTitle message:(id)message title:(id)title
+{
+    if(!title && !message){
+        return NO;
+    }
+    
+    if (title && ![title isKindOfClass:[NSString class]] &&
+        ![title isKindOfClass:[NSAttributedString class]]){
+        return NO;
+    }
+    
+    if (message && ![message isKindOfClass:[NSString class]] &&
+        ![message isKindOfClass:[NSAttributedString class]]){
+        return NO;
+    }
+    
+    if (cancelButtonTitle && ![cancelButtonTitle isKindOfClass:[NSString class]] &&
+        ![cancelButtonTitle isKindOfClass:[NSAttributedString class]]){
+        return NO;
+    }
+    return YES;
 }
 
 #pragma mark - 初始化自定义OKAlertView
@@ -146,21 +200,28 @@
 - (instancetype)initWithFrame:(CGRect)frame
                         title:(id)title
                       message:(id)message
-            cancelButtontitle:(id)cancelTitle
-          otherButtonTitleArr:(NSArray *)buttonTitleArr
-                callBackBlock:(OKAlertViewCallBackBlock)alertViewCallBackBlock
+            cancelButtonTitle:(id)cancelTitle
+            otherButtonTitles:(NSArray *)buttonTitleArr
+                callBackBlock:(OKAlertViewCallBackBlock)alertWithCallBlock
 {
-    self = [super initWithFrame:[UIScreen mainScreen].bounds];
-    
+    self = [super initWithFrame:frame];
     if(self){
-        self.alpha = 0.0;
-        self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.3];
-        
         //点击按钮回调
-        self.alertCallBackBlock = alertViewCallBackBlock;
+        self.alertCallBackBlock = alertWithCallBlock;
+        
+        //取消按钮标题
         self.cancelTitle = cancelTitle;
         
-        //大于一个就把 "取消"按钮放最后， 否则就放第一个
+        //设置按钮标题主色
+        self.mainColor = [OKAlertView appearance].mainColor ? : OKAlertView_MainColor;
+        
+        //1.先移除window上已存在的OKAlertView
+        [self removeOkAlertFromWindow];
+        
+        //2.初始化弹框标题和描述
+        CGFloat lastLabMaxY = [self layoutTitleAndMessageUI:title message:message];
+        
+        //按钮大于一个就把"取消"按钮放最后， 否则就放第一个
         NSMutableArray *allTitleArr = [NSMutableArray arrayWithArray:buttonTitleArr];
         if(cancelTitle) {
             if (allTitleArr.count > 1) {
@@ -170,11 +231,19 @@
             }
         }
         
-        //初始化弹框主视图
-        [self initAlertContentViewWithTitle:title message:message buttonTitleArr:allTitleArr];
+        if (allTitleArr.count > 0) {
+            //3.布局所有弹框按钮
+            [self layoutMutableBtnUI:allTitleArr contentView:self.contentView lastUImaxY:lastLabMaxY];
+            
+        } else { //没有设置按钮就默认直接延迟2秒退出弹框
+            NSInteger dismissTime = self.dismissDuration>0 ? self.dismissDuration : OKAlertView_ToastDismissTime;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(dismissTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self dismissOKAlertView:nil];
+            });
+        }
         
-        //显示在窗口
-        [self showOKAlertView];
+        //4.显示在窗口
+        [self showOKAlertViewToWindow];
     }
     return self;
 }
@@ -182,172 +251,145 @@
 /**
  * 初始化弹框主视图
  */
-- (void)initAlertContentViewWithTitle:(id)title
-                              message:(id)message
-                       buttonTitleArr:(NSArray *)allTitleArr
+- (CGFloat)layoutTitleAndMessageUI:(id)title message:(id)message
 {
-    //移除window上已存在的OKAlertView
-    [self removeOkAlertFromWindow];
+    //弹框矩形视图
+    CGFloat contentW = kFullScreenWidth-OKAlertView_ScreenSpace*2;
+    CGRect rect = CGRectMake(OKAlertView_ScreenSpace, 0, contentW, 0);
     
-    CGRect rect = CGRectMake(OKAlertView_ScreenSpace, 0, kFullScreenWidth-OKAlertView_ScreenSpace*2, 60);    
     UIView *contentView = [[UIView alloc] initWithFrame:rect];
     contentView.backgroundColor = [UIColor whiteColor];
-    contentView.layer.cornerRadius = 12;
+    contentView.layer.cornerRadius = 15;
     contentView.layer.masksToBounds = YES;
     [self addSubview:contentView];
     self.contentView = contentView;
     
-    CGFloat labelWidth = contentView.frame.size.width-OKAlertView_ScreenSpace*2;
-    CGFloat lastUImaxY = 0;
-    CGFloat marginSpace = 30;
+    CGFloat lastLabMaxY = 0;
+    CGFloat labelWidth = contentW-OKAlertView_KitMargin*2;
     
     //提示标题
     UILabel *titleLab = nil;
     if (title) {
         titleLab = [[UILabel alloc] init];
-        titleLab.backgroundColor = [UIColor whiteColor];
-        [titleLab setTextColor:OK_Btn_Normal_Title_Color];
+        titleLab.backgroundColor = [UIColor clearColor];
+        [titleLab setTextColor:OKAlertView_LabelColor];
         [titleLab setTextAlignment:NSTextAlignmentCenter];
-        [titleLab setFont:FONTBOLD(16)];
-        titleLab.numberOfLines = 0;
-        titleLab.adjustsFontSizeToFitWidth = YES;
+        [titleLab setFont:[UIFont boldSystemFontOfSize:17]];
         [contentView addSubview:titleLab];
+        titleLab.numberOfLines = 0;
         
-        CGFloat titleHeight = [title heightWithFont:titleLab.font constrainedToWidth:labelWidth];
-        if (!message && titleHeight<60) {
-            titleHeight = 60;
-        } else {
-            titleHeight = titleHeight+marginSpace;
-        }
-        titleLab.frame = CGRectMake(OKAlertView_ScreenSpace, 0, labelWidth, titleHeight);
-        
-        //设置显示文字样式
+        //赋值文本标题
         [self setTextStyle:titleLab textString:title];
-        lastUImaxY = CGRectGetMaxY(titleLab.frame);
+        CGFloat titleHeight = [OKAlertView calculateTextHeight:titleLab.font
+                                            constrainedToWidth:labelWidth
+                                                     textStyle:title];
+        titleLab.frame = CGRectMake(OKAlertView_KitMargin, OKAlertView_KitMargin, labelWidth, titleHeight);
+        lastLabMaxY = message ? CGRectGetMaxY(titleLab.frame) : (CGRectGetMaxY(titleLab.frame)+OKAlertView_KitMargin);
     }
     
-    //提示信息
+    //详细信息
     UILabel *messageLab = nil;
     if (message) {
         messageLab = [[UILabel alloc] init];
         messageLab.backgroundColor = [UIColor clearColor];
-        [messageLab setTextColor:OK_Btn_Normal_Title_Color];
+        [messageLab setTextColor:OKAlertView_LabelColor];
         [messageLab setTextAlignment:NSTextAlignmentCenter];
-        [messageLab setFont:FONTDEFAULT(14)];
-        messageLab.numberOfLines = 0;
+        [messageLab setFont:FONTDEFAULT(13)];
         [contentView addSubview:messageLab];
+        messageLab.numberOfLines = 0;
         
-        CGFloat msgY = title ? lastUImaxY-marginSpace/2 : lastUImaxY;
-        CGFloat msgHeight = [message heightWithFont:messageLab.font constrainedToWidth:labelWidth];
-        if (!title && msgHeight<60) {
-            msgHeight = 60;
-        } else {
-            msgHeight = msgHeight+marginSpace;
-        }
-        messageLab.frame = CGRectMake(OKAlertView_ScreenSpace, msgY, labelWidth, msgHeight);
-        
-        //设置显示文字样式
+        //赋值文本详细信息
         [self setTextStyle:messageLab textString:message];
-        lastUImaxY = CGRectGetMaxY(messageLab.frame);
+        CGFloat msgHeight = [OKAlertView calculateTextHeight:messageLab.font
+                                          constrainedToWidth:labelWidth
+                                                   textStyle:message];
+        CGFloat messageLabY = title ? (lastLabMaxY+OKAlertView_KitMargin*0.2) : OKAlertView_KitMargin;
+        messageLab.frame = CGRectMake(OKAlertView_KitMargin, messageLabY, labelWidth, msgHeight);
+        lastLabMaxY = CGRectGetMaxY(messageLab.frame)+OKAlertView_KitMargin;
     }
     
-    NSInteger cancelButtonTag = 0;
-    if (self.cancelTitle) {
-        cancelButtonTag = [allTitleArr indexOfObject:self.cancelTitle];
-    }
-    
-    //布局所有Alert按钮
-    [self moduleAlertButton:allTitleArr
-            cancelButtonTag:cancelButtonTag
-                contentView:contentView
-                 lastUImaxY:lastUImaxY];
-    
-    //添加AlertView到窗口上
-    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    [window endEditing:YES];
-    [window addSubview:self];
+    contentView.bounds = CGRectMake(0, 0, contentW, lastLabMaxY);
+    contentView.center = self.center;
+    return lastLabMaxY;
 }
 
 /**
  * 布局所有Alert按钮
  */
-- (void)moduleAlertButton:(NSArray *)allTitleArr
-          cancelButtonTag:(NSInteger)cancelButtonTag
-              contentView:(UIView *)contentView
-               lastUImaxY:(CGFloat)lastUImaxY
+- (void)layoutMutableBtnUI:(NSArray *)allTitleArr
+               contentView:(UIView *)contentView
+                lastUImaxY:(CGFloat)lastLabMaxY
 {
-    //设置所有按钮
-    if (allTitleArr.count>0) {
-        CGFloat lastBtnMaxY = lastUImaxY;
+    if (allTitleArr.count==0) return;
+    
+    CGFloat lastBtnMaxY = lastLabMaxY;
+    CGFloat contentW = kFullScreenWidth-OKAlertView_ScreenSpace*2;
+    
+    for (int i = 0 ; i<allTitleArr.count; i++) {
+        //分割线
+        CGRect lineRect = CGRectMake(0, lastBtnMaxY, contentW, OKAlertView_LineHeight);
+        UILabel *line = [[UILabel alloc] initWithFrame:lineRect];
+        line.backgroundColor = OKAlertView_LineColor;
+        [contentView addSubview:line];
         
-        for (int i = 0 ; i<allTitleArr.count; i++) {
-            //分割线
-            UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, lastBtnMaxY, contentView.frame.size.width, 1)];
-            line.backgroundColor = [UIColor groupTableViewBackgroundColor];
-            [contentView addSubview:line];
-            
-            //按钮
-            UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-            actionBtn.backgroundColor = [UIColor whiteColor];
-            [actionBtn.titleLabel setFont:FONTDEFAULT(16)];
-            [actionBtn addTarget:self action:@selector(alertBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-            [actionBtn setTitleColor:OK_Btn_Normal_Title_Color forState:0];
-            [actionBtn setBackgroundImage:[self ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
-            [actionBtn setBackgroundImage:[self ok_imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
-            [actionBtn setExclusiveTouch:YES];
-            [contentView addSubview:actionBtn];
-            
-            //标记取消按钮位置
-            if (cancelButtonTag == (allTitleArr.count-1)) {
-                actionBtn.tag = (i == allTitleArr.count-1) ? 0 : i+1;
-            } else {
+        //按钮
+        UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        actionBtn.backgroundColor = [UIColor whiteColor];
+        [actionBtn.titleLabel setFont:FONTDEFAULT(16)];
+        [actionBtn setTitleColor:OKAlertView_BtnTitleNorColor forState:0];
+        [actionBtn addTarget:self action:@selector(alertBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        [actionBtn setBackgroundImage:[OKAlertView ok_imageWithColor:OKAlertView_BtnBgDisabledColor] forState:UIControlStateDisabled];
+        [actionBtn setBackgroundImage:[OKAlertView ok_imageWithColor:OKAlertView_BtnBgHighColor] forState:UIControlStateHighlighted];
+        [actionBtn setExclusiveTouch:YES];
+        [contentView addSubview:actionBtn];
+        actionBtn.tag = i;
+        
+        //赋值按钮标题
+        [self setTextStyle:actionBtn textString:allTitleArr[i]];
+        
+        //保存按钮
+        [self.alertAllButtonArr addObject:actionBtn];
+        
+        //标记按钮位置，在取按钮的函数(buttonAtIndex:)时用到
+        if (self.cancelTitle) {
+            NSInteger cancelBtnIndex = [allTitleArr indexOfObject:self.cancelTitle];
+            if (cancelBtnIndex == 0) {
                 actionBtn.tag = i;
-            }
-            
-            //设置显示文字样式
-            [self setTextStyle:actionBtn textString:allTitleArr[i]];
-            
-            //布局按钮个数
-            CGFloat actionBtnWidth = contentView.frame.size.width/2;
-            if (allTitleArr.count == 2) {
-                if (i == 0) {
-                    actionBtn.frame = CGRectMake(0, CGRectGetMaxY(line.frame), actionBtnWidth, OK_BigBtn_Height);
-                } else {
-                    line.frame = CGRectMake(actionBtnWidth, CGRectGetMaxY(line.frame), 1, OK_BigBtn_Height);
-                    actionBtn.frame = CGRectMake(actionBtnWidth+1, CGRectGetMinY(line.frame), actionBtnWidth, OK_BigBtn_Height);
-                    
-                    //只有两个按钮时，第二个按钮显示特定颜色
-                    [actionBtn setTitleColor:OK_Main_Color forState:0];
-                }
             } else {
-                //布局控件位置
-                actionBtn.frame = CGRectMake(0, CGRectGetMaxY(line.frame), contentView.frame.size.width, OK_BigBtn_Height);
-                
-                //记住位置y
-                lastBtnMaxY = CGRectGetMaxY(actionBtn.frame);
-                
-                //大于两个按钮时，变取消按钮显示特定颜色
-                if (self.cancelTitle &&
-                    [self.cancelTitle isKindOfClass:[NSString class]] &&
-                    [self.cancelTitle isEqualToString:allTitleArr[i]]) {
-                    [actionBtn setTitleColor:OK_Main_Color forState:0];
-                }
+                actionBtn.tag = (i == allTitleArr.count-1) ? 0 : i+1;
+            }
+        }
+        
+        //按钮个数大于2个
+        if (allTitleArr.count > 2) {
+            actionBtn.frame = CGRectMake(0, CGRectGetMaxY(line.frame), contentW, OKAlertView_BigBtnHeight);
+            
+            //大于两个按钮时，变取消按钮显示特定颜色
+            if (self.cancelTitle &&
+                [self.cancelTitle isKindOfClass:[NSString class]] &&
+                [self.cancelTitle isEqualToString:allTitleArr[i]]) {
+                [actionBtn setTitleColor:self.mainColor forState:0];
             }
             
-            contentView.bounds = CGRectMake(0, 0, kFullScreenWidth-OKAlertView_ScreenSpace*2, CGRectGetMaxY(actionBtn.frame));
-            contentView.center = self.center;
+        } else {
+            CGFloat btnY = lastLabMaxY+OKAlertView_LineHeight;
+            CGFloat btnW = allTitleArr.count==2 ? contentW/2 : contentW;
+            CGFloat lineY = allTitleArr.count==2 ? (i==0?lastLabMaxY:btnY) : lastLabMaxY;
+            CGFloat lineW = allTitleArr.count==2 ? (i==0?contentW:OKAlertView_LineHeight) : contentW;
+            CGFloat lineH = allTitleArr.count==2 ? (i==0?OKAlertView_LineHeight:OKAlertView_BigBtnHeight) : OKAlertView_BigBtnHeight;
+            line.frame = CGRectMake((contentW/2)*i, lineY, lineW, lineH);
+            actionBtn.frame = CGRectMake((contentW/2+OKAlertView_LineHeight)*i, btnY, btnW, OKAlertView_BigBtnHeight);
             
-            //保存按钮
-            [self.alertAllButtonArr addObject:actionBtn];
+            if (self.cancelTitle && i==allTitleArr.count-1) {
+                //只有两个按钮时，第二个按钮显示特定颜色
+                [actionBtn setTitleColor:self.mainColor forState:0];
+            }
         }
-    } else {
-        contentView.bounds = CGRectMake(0, 0, kFullScreenWidth-OKAlertView_ScreenSpace*2, lastUImaxY);
-        contentView.center = self.center;
         
-        //没有设置按钮就延迟2秒退出弹框
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(OKToast_dismissTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self dismissOKAlertView:nil];
-        });
+        //记住按钮y位置
+        lastBtnMaxY = CGRectGetMaxY(actionBtn.frame);
+        contentView.bounds = CGRectMake(0, 0, kFullScreenWidth-OKAlertView_ScreenSpace*2, CGRectGetMaxY(actionBtn.frame));
+        contentView.center = self.center;
     }
 }
 
@@ -423,11 +465,9 @@
  */
 - (void)alertBtnAction:(UIButton *)actionBtn
 {
-    
     if (self.alertCallBackBlock) {
         self.alertCallBackBlock(actionBtn.tag);
     }
-    
     //退出弹框
     [self dismissOKAlertView:nil];
 }
@@ -446,9 +486,9 @@
 #pragma mark -===========2秒自动消失弹框===========
 
 /**
- *  2秒自动消失系统Alert弹框
+ *  2秒自动消失的系统Alert弹框
  *
- *  @msg 提示文字
+ *  @msg 提示标题->(支持 NSString、NSAttributedString)
  */
 void ShowAlertToast(id msg) {
     ShowAlertToastByTitle(nil, msg);
@@ -456,31 +496,39 @@ void ShowAlertToast(id msg) {
 
 
 /**
- 2秒自动消失带标题的系统Alert弹框
+ * 2秒自动消失带标题的系统Alert弹框
  
- @param title 标题
- @param msg 提示信息
+ * @param title 提示标题->(支持 NSString、NSAttributedString)
+ * @param msg   提示信息->(支持 NSString、NSAttributedString)
  */
 void ShowAlertToastByTitle(id title, id msg) {
     
     if (!title && !msg) return;
-    
-    [OKAlertView alertWithCallBackBlock:nil title:title message:msg cancelButtonName:nil otherButtonTitles: nil];
+    [OKAlertView alertWithCallBlock:nil
+                              title:title
+                            message:msg
+                  cancelButtonTitle:nil
+                  otherButtonTitles:nil];
 }
 
-
 /**
- * 显示错误提示信息
+ * 指定时间消失Alert弹框
+ 
+ * @param title         提示标题->(支持 NSString、NSAttributedString)
+ * @param msg           提示信息->(支持 NSString、NSAttributedString)
+ * @param duration      消失时间
+ * @param dismissBlock  消失回调
  */
-+ (void)showMsgWithError:(NSError *)error defaultMsg:(NSString *)defaultMsg{
-    NSString *errorMsg = error.domain;
-    NSInteger code = error.code;
-    if (code > 200 && code < 500 && errorMsg.length) {
-        ShowAlertToastByTitle(@"提示", errorMsg);
-    }
-    else if (defaultMsg.length){
-        ShowAlertToastByTitle(@"提示", defaultMsg);
-    }
+void ShowAlertToastDelay(id title, id msg, NSTimeInterval duration, void(^dismissBlock)(void)){
+    
+    if (!title && !msg) return;
+    OKAlertView *alertView = [OKAlertView alertWithCallBlock:nil
+                                                       title:title
+                                                     message:msg
+                                           cancelButtonTitle:nil
+                                           otherButtonTitles: nil];
+    alertView.dismissDuration = duration;
+    alertView.dismissBlock = dismissBlock;
 }
 
 #pragma mark -===========显示，退出弹框===========
@@ -488,11 +536,21 @@ void ShowAlertToastByTitle(id title, id msg) {
 /**
  *  显示弹框
  */
-- (void)showOKAlertView
+- (void)showOKAlertViewToWindow
 {
-    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    self.alpha = 0.0;
+    self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
+    
+    //添加AlertView到窗口上
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    [window endEditing:YES];
+    [window addSubview:self];
+    
+    self.contentView.transform = CGAffineTransformMakeScale(1.12, 1.12);
+    [UIView animateWithDuration:0.15f animations:^{
         self.alpha = 1;
-    } completion:nil];
+        self.contentView.transform = CGAffineTransformIdentity;
+    }];
 }
 
 /**
@@ -500,9 +558,13 @@ void ShowAlertToastByTitle(id title, id msg) {
  */
 - (void)dismissOKAlertView:(id)sender
 {
-    [UIView animateWithDuration:0.2f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.1f animations:^{
         self.alpha = 0.0;
+        self.contentView.transform = CGAffineTransformMakeScale(0.8, 0.8);
     } completion:^(BOOL finished) {
+        if (self.dismissBlock) {
+            self.dismissBlock();
+        }
         [self removeFromSuperview];
     }];
 }
@@ -527,9 +589,14 @@ void ShowAlertToastByTitle(id title, id msg) {
                                placeholder:(NSString *)placeholder
                                cancelTitle:(NSString *)cancelTitle
                                 otherTitle:(NSString *)otherTitle
+                              keyboardType:(UIKeyboardType)keyboardType
                                buttonBlock:(void (^)(NSString *inputText))otherBlock
-                               cancelBlock:(void (^)())cancelBlock
+                               cancelBlock:(void (^)(void))cancelBlock
 {
+    if (![OKAlertView appearance].mainColor) {
+        [OKAlertView appearance].mainColor = OKAlertView_MainColor;
+    }
+    
     //警告： 弹出ios8以上的系统框
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
     
@@ -550,9 +617,9 @@ void ShowAlertToastByTitle(id title, id msg) {
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         textField.placeholder = placeholder;
-        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.keyboardType = keyboardType;
         
-        if (KsystemVersion < 9.0) {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
             textField.superview.superview.layer.cornerRadius = 1;
             textField.superview.superview.layer.masksToBounds = YES;
             textField.superview.superview.layer.borderColor = ColorFromHex(0xdcdcdc).CGColor;
@@ -561,7 +628,7 @@ void ShowAlertToastByTitle(id title, id msg) {
             
             /** 是否能获取该属性*/
             Class cls = NSClassFromString(@"_UIAlertControllerTextField");
-            if([textField isKindOfClass:cls] && [cls ok_hasVarName:@"_textFieldView"])
+            if([textField isKindOfClass:cls] && [OKAlertView verifyObject:cls ok_hasVarName:@"_textFieldView"])
             {
                 UIView *textFieldBorderView = [textField valueForKeyPath:@"_textFieldView"];
                 if ([textFieldBorderView isKindOfClass:[UIView class]]) {
@@ -573,27 +640,26 @@ void ShowAlertToastByTitle(id title, id msg) {
             }
         }
     }];
-    
     /** 是否能获取该属性*/
-    if(title && [[alertController class] ok_hasVarName:@"attributedTitle"])
+    if(title && [OKAlertView verifyObject:alertController ok_hasVarName:@"attributedTitle"])
     {
         //设置标题为细体
-        NSAttributedString *titleAttrs = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:OK_Btn_Normal_Title_Color, NSFontAttributeName: FONTDEFAULT(16)}];
+        NSAttributedString *titleAttrs = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:OKAlertView_BtnTitleNorColor, NSFontAttributeName: FONTDEFAULT(16)}];
         [alertController setValue:titleAttrs forKey:@"attributedTitle"];
     }
     
     //设置按钮颜色
-    if([[UIAlertAction class] ok_hasVarName:@"titleTextColor"])
+    if([OKAlertView verifyObject:[UIAlertAction class] ok_hasVarName:@"titleTextColor"])
     {
         for(int i = 0; i<alertController.actions.count; i++)
         {
             UIAlertAction *action = alertController.actions[i];
             if(i == alertController.actions.count-1) {
                 //最后一个按钮设置特定颜色
-                [action setValue:OK_Main_Color forKey:@"titleTextColor"];
+                [action setValue:[OKAlertView appearance].mainColor forKey:@"titleTextColor"];
                 
             } else {
-                [action setValue:OK_Btn_Normal_Title_Color forKey:@"titleTextColor"];
+                [action setValue:OKAlertView_BtnTitleNorColor forKey:@"titleTextColor"];
             }
         }
     }
@@ -607,7 +673,7 @@ void ShowAlertToastByTitle(id title, id msg) {
     
     //如果弹框没有一个按钮，则自动延迟隐藏
     if(!cancelTitle && !otherTitle){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(OKToast_dismissTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(OKAlertView_ToastDismissTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [alertController dismissViewControllerAnimated:YES completion:nil];
         });
     }
@@ -615,10 +681,12 @@ void ShowAlertToastByTitle(id title, id msg) {
     return alertController;
 }
 
+#pragma mark - 工具方法,不引入其他类直接写在当前类
+
 /**
- * 为了不引入其他类，直接在这里设置颜色图片
+ * 根据颜色获取一个单位大小的图片
  */
-- (UIImage *)ok_imageWithColor:(UIColor *)color
++ (UIImage *)ok_imageWithColor:(UIColor *)color
 {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
@@ -630,10 +698,68 @@ void ShowAlertToastByTitle(id title, id msg) {
     return image;
 }
 
+/**
+ *  计算不同文本类型的高度
+ */
++ (CGFloat)calculateTextHeight:(UIFont *)font
+            constrainedToWidth:(CGFloat)width
+                     textStyle:(id)textObject
+{
+    if ([textObject isKindOfClass:[NSAttributedString class]]) {
+        CGSize textSize = [textObject boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                                options:(NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingTruncatesLastVisibleLine)
+                                                context:nil].size;
+        return ceil(textSize.height);
+        
+    } else if ([textObject isKindOfClass:[NSString class]]) {
+        
+        UIFont *textFont = font ? font : [UIFont systemFontOfSize:[UIFont systemFontSize]];
+        CGSize textSize;
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+        NSDictionary *attributes = @{NSFontAttributeName: textFont,
+                                     NSParagraphStyleAttributeName: paragraph};
+        
+        textSize = [(NSString *)textObject boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                      options:(NSStringDrawingUsesLineFragmentOrigin |
+                                               NSStringDrawingTruncatesLastVisibleLine)
+                                   attributes:attributes
+                                      context:nil].size;
+        return ceil(textSize.height);
+    }
+    return 0.0;
+}
+
+
+/**
+ *  校验一个类是否有该属性
+ */
++ (BOOL)verifyObject:(id)verifyObject ok_hasVarName:(NSString *)name
+{
+    unsigned int outCount;
+    BOOL hasProperty = NO;
+    Ivar *ivars = class_copyIvarList([verifyObject class], &outCount);
+    for (int i = 0; i < outCount; i++)
+    {
+        Ivar property = ivars[i];
+        NSString *keyName = [NSString stringWithCString:ivar_getName(property) encoding:NSUTF8StringEncoding];
+        keyName = [keyName stringByReplacingOccurrencesOfString:@"_" withString:@""];
+        
+        NSString *absoluteName = [NSString stringWithString:name];
+        absoluteName = [absoluteName stringByReplacingOccurrencesOfString:@"_" withString:@""];
+        if ([keyName isEqualToString:absoluteName]) {
+            hasProperty = YES;
+            break;
+        }
+    }
+    //释放
+    free(ivars);
+    return hasProperty;
+}
+
 - (void)dealloc
 {
-    NSLog(@"%s",__func__);
+    //NSLog(@"OKAlertView dealloc");
 }
 
 @end
-
