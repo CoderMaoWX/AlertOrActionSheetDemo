@@ -59,11 +59,11 @@
 
 #### 代码用法:
 ```
-[OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
+[OKAlertController alertWithCallBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         showAlertToast(tip);
         
-    } title:nil message:@"普通弹框" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
+    } title:nil message:@"普通弹框" cancelButtonTitle:@"取消" otherButtonTitles:@"确定1",@"确定2", nil];
 ```
 
 ### 2. 普通两个以上按钮弹框样式:
@@ -72,11 +72,11 @@
 
 #### 代码用法:
 ```
-[OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
+[OKAlertController alertWithCallBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
         showAlertToast(tip);
         
-    } title:@"温馨提示" message:@"显示两个以上按钮" cancelButtonName:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
+    } title:@"温馨提示" message:@"显示两个以上按钮" cancelButtonTitle:@"取消" otherButtonTitles:@"确定1",@"确定2",@"确定3", nil];
 ```
 
 ### 3. 系统带输入弹框弹框样式:
