@@ -2,7 +2,7 @@
 //  OKAlertView.h
 //  AlertOrActionSheetDemo
 //
-//  Created by mao wangxin on 2017/3/28.
+//  Created by mao wangxin on 2016/12/29.
 //  Copyright © 2017年 okdeer. All rights reserved.
 //
 
@@ -13,7 +13,13 @@ typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
 
 @interface OKAlertView : UIView
 
-@property (nonatomic,strong) UIColor *mainColor UI_APPEARANCE_SELECTOR;
+/** 可以在程序启动后,初始化OKAlertView单个控件的主题色, App设置一次全局生效
+ *  用法: [OKActionSheetView appearance].titleTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:10], ....};
+ */
+@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *titleTextAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *messageTextAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *otherBtnTitleAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *cancelBtnTitleAttributes UI_APPEARANCE_SELECTOR;
 
 /**
  自定义的AlertView弹框

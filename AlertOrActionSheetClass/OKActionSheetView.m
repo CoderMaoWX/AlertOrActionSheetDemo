@@ -1,6 +1,6 @@
 //
 //  OKActionSheetView.m
-//  OkdeerUser
+//  AlertOrActionSheetDemo
 //
 //  Created by mao wangxin on 2016/12/29.
 //  Copyright © 2016年 okdeer. All rights reserved.
@@ -8,38 +8,38 @@
 
 #import "OKActionSheetView.h"
 
-#define RGB(r,g,b)                          [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f                                                                                 alpha:1.f]
 #define UIColorFromHex(hexValue)            [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0x00FF00) >> 8))/255.0 blue:((float)(hexValue & 0x0000FF))/255.0 alpha:1.0]
 #define kFullScreenWidth                    ([UIScreen mainScreen].bounds.size.width)
 #define kFullScreenHeight                   ([UIScreen mainScreen].bounds.size.height)
 #define OKActionSheet_font(fontSize)        ([UIFont systemFontOfSize:fontSize])
 
-//全局黑色字体颜色
+//重写NSLog,Debug模式下打印日志和当前行数
+#if DEBUG
+#define OKLog(fmt, ...) NSLog((@"[函数名:%s] " " [行号:%d] " fmt), __FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define OKLog(fmt, ...)
+#endif
+
+// 黑色字体颜色
 #define OKActionSheet_BlackColor            UIColorFromHex(0x323232)
-
-//主色 (草绿色)
-#define OKActionSheet_MainColor             UIColorFromHex(0x8CC63F)
-
-//灰色线条颜色
+// 按钮标题颜色
+#define OKActionSheet_ButtonTitleColor      UIColorFromHex(0xE7E7E7)
+// 主色 (默认为系统 UIAlertView的蓝色)
+#define OKActionSheet_cancelTitleColor      UIColorFromHex(0x2F7AFF)
+// 灰色线条颜色
 #define OKActionSheet_LineColor             UIColorFromHex(0xe5e5e5)
-
+// 按钮不可用状态背景颜色
+#define OK_Btn_Disabled_Bg_Color            UIColorFromHex(0xe2e2e2)
+// 按钮高亮状态背景颜色
+#define OK_Btn_Highlighted_Bg_Color         [UIColorFromHex(0xe8e8e8) colorWithAlphaComponent:0.5]
 // 按钮超过最大个数,则滚动
 #define OKActionSheet_MaxButtonCount        5
-
-// 按钮高度
-#define OKActionSheet_ButtonHeight          44.0f
-
-// 按钮间隙
-#define OKActionSheet_CancelBtnSpace        10.0f
-
 // 控件离屏幕边缘上下左右间距
 #define OKActionSheet_LineSpacing           15
-
-//按钮高亮状态背景颜色
-#define  OK_Btn_Highlighted_Bg_Color             [[UIColor groupTableViewBackgroundColor] colorWithAlphaComponent:0.5]
-
-//按钮不可用状态背景颜色
-#define  OK_Btn_Disabled_Bg_Color                UIColorFromHex(0xe2e2e2)
+// 按钮高度
+#define OKActionSheet_ButtonHeight          44.0f
+// 按钮间隙
+#define OKActionSheet_CancelBtnSpace        10.0f
 
 
 typedef enum : NSUInteger {
@@ -53,20 +53,14 @@ typedef enum : NSUInteger {
 
 /** ActionSheet主视图 */
 @property (nonatomic, strong) UIView *contentView;
-
 /** ActionSheet所有按钮数组 */
 @property (nonatomic, strong) NSMutableArray *actionSheetButtonArr;
-
 /** ActionSheet样式 */
 @property (nonatomic, assign) CCActionSheetStyleType actionSheetStyleType;
-
 /** ActionSheet普通按钮点击回调 */
 @property (nonatomic, copy) OKActionSheetCallBackBlock buttonBlock;
-
 /** ActionSheet取消按钮点击回调 */
-@property (nonatomic, copy) void(^cancelBlock)();
-
-@property (nonatomic, assign)CGPoint showTopPosition;
+@property (nonatomic, copy) void(^cancelButtonBlock)();
 @end
 
 @implementation UIView (Extension)
@@ -141,13 +135,13 @@ typedef enum : NSUInteger {
  * 从底部弹出直角的ActionSheet
  */
 + (instancetype)actionSheetByBottomSquare:(OKActionSheetCallBackBlock)buttonBlock
-                              cancelBlock:(void (^)())cancelBlock
+                              cancelButtonBlock:(void (^)())cancelButtonBlock
                                 WithTitle:(id)title
                         cancelButtonTitle:(id)cancelButtonTitle
                       otherButtonTitleArr:(NSArray *)otherButtonTitleArr
 {
     if(otherButtonTitleArr.count == 0 && !cancelButtonTitle){
-        NSLog(@"按钮至少要有一个");
+        OKLog(@"至少要有一个按钮");
         return nil;
     }
     
@@ -159,7 +153,7 @@ typedef enum : NSUInteger {
                         buttonTitleArr:otherButtonTitleArr
                         buttonImageArr:nil
                                  block:buttonBlock
-                           cancelBlock:cancelBlock
+                           cancelButtonBlock:cancelButtonBlock
                   actionSheetStyleType:BottomSquareSheetStyle];
 }
 
@@ -170,13 +164,13 @@ typedef enum : NSUInteger {
  * 从底部弹出带圆角的ActionSheet
  */
 + (instancetype)actionSheetByBottomCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
-                                    cancelBlock:(void (^)())cancelBlock
+                                    cancelButtonBlock:(void (^)())cancelButtonBlock
                                       WithTitle:(id)title
                               cancelButtonTitle:(id)cancelButtonTitle
                             otherButtonTitleArr:(NSArray *)otherButtonTitleArr
 {
     if(otherButtonTitleArr.count == 0 && !cancelButtonTitle) {
-        NSLog(@"按钮至少要有一个");
+        OKLog(@"至少要有一个按钮");
         return nil;
     }
     
@@ -188,7 +182,7 @@ typedef enum : NSUInteger {
                         buttonTitleArr:otherButtonTitleArr
                         buttonImageArr:nil
                                  block:buttonBlock
-                           cancelBlock:cancelBlock
+                           cancelButtonBlock:cancelButtonBlock
                   actionSheetStyleType:BottomCornerRadiusSheetStyle];
 }
 
@@ -198,14 +192,14 @@ typedef enum : NSUInteger {
  * 从顶部弹出带圆角的ActionSheet
  */
 + (instancetype)actionSheetByTopSquare:(OKActionSheetCallBackBlock)buttonBlock
-                           cancelBlock:(void (^)())cancelBlock
+                           cancelButtonBlock:(void (^)())cancelButtonBlock
                              superView:(UIView *)superView
                               position:(CGPoint)position
                         buttonTitleArr:(NSArray *)buttonTitleArr
                         buttonImageArr:(NSArray *)buttonImageArr
 {
     if(buttonTitleArr.count == 0) {
-        NSLog(@"按钮至少要有一个");
+        OKLog(@"至少要有一个按钮");
         return nil;
     }
     
@@ -217,7 +211,7 @@ typedef enum : NSUInteger {
                         buttonTitleArr:buttonTitleArr
                         buttonImageArr:buttonImageArr
                                  block:buttonBlock
-                           cancelBlock:cancelBlock
+                           cancelButtonBlock:cancelButtonBlock
                   actionSheetStyleType:TopSquareSheetStyle];
 }
 
@@ -232,7 +226,7 @@ typedef enum : NSUInteger {
                buttonTitleArr:(NSArray *)buttonTitleArr
                buttonImageArr:(NSArray *)buttonImageArr
                         block:(OKActionSheetCallBackBlock)callBackBlock
-                  cancelBlock:(void (^)())cancelBlock
+                  cancelButtonBlock:(void (^)())cancelButtonBlock
          actionSheetStyleType:(CCActionSheetStyleType)styleType
 {
     if (superView) {
@@ -244,7 +238,7 @@ typedef enum : NSUInteger {
     
     if (self) {
         self.buttonBlock = callBackBlock;
-        self.cancelBlock = cancelBlock;
+        self.cancelButtonBlock = cancelButtonBlock;
         self.actionSheetStyleType = styleType;
         
         self.alpha = 0.0;
@@ -254,7 +248,12 @@ typedef enum : NSUInteger {
         UIControl *control = [[UIControl alloc] initWithFrame:self.frame];
         [control addTarget:self action:@selector(dismissCCActionSheet:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:control];
-        
+
+        //设置按钮标题主色
+        self.titleTextAttributes = [OKActionSheetView appearance].titleTextAttributes ? : nil;
+        self.otherBtnTitleAttributes = [OKActionSheetView appearance].otherBtnTitleAttributes ? : nil;
+        self.cancelBtnTitleAttributes = [OKActionSheetView appearance].cancelBtnTitleAttributes ? : nil;
+
         if (styleType == BottomCornerRadiusSheetStyle) { //底部创建圆角ActionSheet
             [self initBottomCornerRadiusActionSheetUI:title
                                           cancelTitle:cancelTitle
@@ -315,38 +314,39 @@ typedef enum : NSUInteger {
     
     //是否有标题
     if (title){
-        CGFloat fontNum = 16;
         UILabel *titleLab = [[UILabel alloc] init];
         titleLab.backgroundColor = UIColorFromHex(0xf5f5f5);
         [titleLab setTextColor:UIColorFromHex(0x666666)];
         [titleLab setTextAlignment:NSTextAlignmentCenter];
-        [titleLab setFont:OKActionSheet_font(fontNum)];
+        [titleLab setFont:OKActionSheet_font(14)];
         titleLab.backgroundColor = UIColorFromHex(0xf5f5f5);
         titleLab.numberOfLines = 0;
         [aboveView addSubview:titleLab];
-        
+
         //根据文字类型设置标题
-        NSString *titleString = nil;
-        CGFloat btnHeight = OKActionSheet_ButtonHeight+5;
+        id titleObject = title;
         if ([title isKindOfClass:[NSString class]])
         {
-            titleString = title;
-            [titleLab setText:title];
-            
+            if (self.titleTextAttributes) {
+                NSAttributedString *titleAttr = [[NSAttributedString alloc] initWithString:title attributes:self.titleTextAttributes];
+                [titleLab setAttributedText:titleAttr];
+                titleObject = titleAttr;
+            } else {
+                [titleLab setText:title];
+            }
+
         } else if([title isKindOfClass:[NSAttributedString class]]){
             [titleLab setAttributedText:title];
-            titleString = ((NSAttributedString *)title).string;
         }
-        /*
-         if ([CCAlertView stringSize:titleString andFont:titleLab.font andwidth:MAXFLOAT].height > fontNum+2){
-         btnHeight +=10;
-         }
-         */
-        
-        [titleLab setFrame:CGRectMake(0, 0, aboveView.width, btnHeight)];
+
+        CGFloat btnHeight = OKActionSheet_ButtonHeight;
+        CGFloat titleLabW = aboveView.width-OKActionSheet_LineSpacing*2;
+        CGFloat fontSize = [OKActionSheetView calculateTextHeight:titleLab.font constrainedToWidth:titleLabW textObject:titleObject];
+        btnHeight = (fontSize+20);
+        [titleLab setFrame:CGRectMake(OKActionSheet_LineSpacing, 0, titleLabW, btnHeight)];
         
         //线条
-        UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLab.frame), titleLab.width, 0.5f)];
+        UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(titleLab.frame), aboveView.width, 0.5f)];
         [line setImage:[UIImage imageNamed:@"cellLine"]];
         [aboveView addSubview:line];
         if (!line.image) {
@@ -373,13 +373,12 @@ typedef enum : NSUInteger {
         UIButton *actionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [actionBtn setSize:CGSizeMake(aboveView.width, OKActionSheet_ButtonHeight)];
         actionBtn.backgroundColor = [UIColor whiteColor];
-        [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
         [actionBtn.titleLabel setFont:OKActionSheet_font(16)];
-        [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
         [actionBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [actionBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
-        [actionBtn setBackgroundImage:[self imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
-        [actionBtn setBackgroundImage:[self imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
+        [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
+        [actionBtn setTitleColor:OKActionSheet_ButtonTitleColor forState:UIControlStateDisabled];
+        [actionBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
+        [actionBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
         [actionBtn setExclusiveTouch:YES];
         
         //添加所有actionSheet按钮
@@ -392,7 +391,7 @@ typedef enum : NSUInteger {
             actionBtn.layer.cornerRadius = 5;
             actionBtn.layer.masksToBounds = YES;
             actionBtn.y = CGRectGetMaxY(aboveView.frame)+OKActionSheet_CancelBtnSpace;
-            [actionBtn setTitleColor:OKActionSheet_MainColor forState:0];
+            [actionBtn setTitleColor:OKActionSheet_cancelTitleColor forState:0];
             [contentView addSubview:actionBtn];
             
             //设置整体contentView高度
@@ -419,16 +418,37 @@ typedef enum : NSUInteger {
         //根据文字类型设置标题
         id buttonTitle = allbuttontitleArr[i];
         if ([buttonTitle isKindOfClass:[NSString class]]) {
-            [actionBtn setTitle:buttonTitle forState:0];
+
+            //设置取消按钮标题
+            if (cancelTitle && i == allbuttontitleArr.count-1) {
+                if (self.cancelBtnTitleAttributes) {
+                    NSAttributedString *buttonTitleAttr = [[NSAttributedString alloc] initWithString:buttonTitle attributes:self.cancelBtnTitleAttributes];
+                    [actionBtn setAttributedTitle:buttonTitleAttr forState:0];
+
+                } else {
+                    [actionBtn setTitleColor:OKActionSheet_cancelTitleColor forState:0];
+                    [actionBtn setTitle:buttonTitle forState:0];
+                }
+
+            } else { //设置其他按钮标题
+
+                if (self.otherBtnTitleAttributes) {
+                    NSAttributedString *buttonTitleAttr = [[NSAttributedString alloc] initWithString:buttonTitle attributes:self.otherBtnTitleAttributes];
+                    [actionBtn setAttributedTitle:buttonTitleAttr forState:0];
+                } else {
+                    [actionBtn setTitle:buttonTitle forState:0];
+                }
+            }
             
         } else if([buttonTitle isKindOfClass:[NSAttributedString class]]){
             [actionBtn setAttributedTitle:buttonTitle forState:0];
         }
         
         //线条
+        CGFloat lineSpace = (i==0) ? 0 : 10;
         UIImageView *line = [[UIImageView alloc] init];
         [line setImage:[UIImage imageNamed:@"cellLine"]];
-        [line setFrame:CGRectMake(10, 0, contentView.width-20, 0.5f)];
+        [line setFrame:CGRectMake(lineSpace, 0, contentView.width-lineSpace*2, 0.5f)];
         [actionBtn addSubview:line];
         if (!line.image) {
             line.backgroundColor = [UIColor groupTableViewBackgroundColor];
@@ -439,20 +459,18 @@ typedef enum : NSUInteger {
     
     //创建滚动底下提示文字
     if (allbuttontitleArr.count > OKActionSheet_MaxButtonCount) {
-        
         UILabel *topTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, titleHY+5, aboveView.width, 20)];
         topTipLab.text = @"已经到顶了哦^_^";
         topTipLab.textColor = OKActionSheet_LineColor;
         topTipLab.textAlignment = NSTextAlignmentCenter;
-        topTipLab.font = [UIFont systemFontOfSize:12];
+        topTipLab.font = [UIFont systemFontOfSize:10];
         [aboveView insertSubview:topTipLab atIndex:0];
         
-        
         UILabel *bottomTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, aboveView.height-25, aboveView.width, 20)];
-        bottomTipLab.text = @"已经到没有了哦^_^";
+        bottomTipLab.text = @"已经到底了哦^_^";
         bottomTipLab.textColor = OKActionSheet_LineColor;
         bottomTipLab.textAlignment = NSTextAlignmentCenter;
-        bottomTipLab.font = [UIFont systemFontOfSize:12];
+        bottomTipLab.font = [UIFont systemFontOfSize:10];
         [aboveView insertSubview:bottomTipLab atIndex:0];
     }
     
@@ -485,19 +503,33 @@ typedef enum : NSUInteger {
         titleLab.backgroundColor = UIColorFromHex(0xf5f5f5);
         [titleLab setTextColor:UIColorFromHex(0x666666)];
         [titleLab setTextAlignment:NSTextAlignmentCenter];
-        [titleLab setFont:OKActionSheet_font(16)];
+        [titleLab setFont:OKActionSheet_font(14)];
         titleLab.numberOfLines = 0;
-        titleLab.frame = CGRectMake(0, 0, contentView.width, OKActionSheet_ButtonHeight);
         [contentView addSubview:titleLab];
         
         //根据文字类型设置标题
+        id titleObject = title;
         if ([title isKindOfClass:[NSString class]]) {
-            [titleLab setText:title];
+
+            if (self.titleTextAttributes) {
+                NSAttributedString *titleAttr = [[NSAttributedString alloc] initWithString:title attributes:self.titleTextAttributes];
+                [titleLab setAttributedText:titleAttr];
+                titleObject = titleAttr;
+
+            } else {
+                [titleLab setText:title];
+            }
             
         } else if([title isKindOfClass:[NSAttributedString class]]){
             [titleLab setAttributedText:title];
         }
-        
+
+        CGFloat titleLabW = contentView.width-OKActionSheet_LineSpacing*2;
+        CGFloat btnHeight = OKActionSheet_ButtonHeight;
+        CGFloat fontSize = [OKActionSheetView calculateTextHeight:titleLab.font constrainedToWidth:titleLabW textObject:titleObject];
+        btnHeight = (fontSize+20);
+        [titleLab setFrame:CGRectMake(OKActionSheet_LineSpacing, 0, titleLabW, btnHeight)];
+
         //线条
         UIImageView *line = [[UIImageView alloc] initWithFrame:CGRectMake(0,CGRectGetMaxY(titleLab.frame), kFullScreenWidth, 0.5f)];
         [line setImage:[UIImage imageNamed:@"cellLine"]];
@@ -527,10 +559,10 @@ typedef enum : NSUInteger {
         actionBtn.tag = i+1;
         [actionBtn.titleLabel setFont:OKActionSheet_font(16)];
         [actionBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [actionBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
+        [actionBtn setTitleColor:OKActionSheet_ButtonTitleColor forState:UIControlStateDisabled];
         [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
-        [actionBtn setBackgroundImage:[self imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
-        [actionBtn setBackgroundImage:[self imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
+        [actionBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
+        [actionBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
         [scrollView addSubview:actionBtn];//把每个按钮添加到scrollView上
         [actionBtn setExclusiveTouch:YES];
         
@@ -540,7 +572,13 @@ typedef enum : NSUInteger {
         //根据文字类型设置actionBtn标题
         id buttonTitle = allbuttontitleArr[i];
         if ([buttonTitle isKindOfClass:[NSString class]]) {
-            [actionBtn setTitle:buttonTitle forState:0];
+
+            if (self.otherBtnTitleAttributes) {
+                NSAttributedString *buttonTitleAttr = [[NSAttributedString alloc] initWithString:buttonTitle attributes:self.otherBtnTitleAttributes];
+                [actionBtn setAttributedTitle:buttonTitleAttr forState:0];
+            } else {
+                [actionBtn setTitle:buttonTitle forState:0];
+            }
             
         } else if([buttonTitle isKindOfClass:[NSAttributedString class]]){
             [actionBtn setAttributedTitle:buttonTitle forState:0];
@@ -574,16 +612,23 @@ typedef enum : NSUInteger {
     cancelBtn.tag = 0;
     [cancelBtn.titleLabel setFont:OKActionSheet_font(16)];
     [cancelBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [cancelBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
-    [cancelBtn setTitleColor:OKActionSheet_MainColor forState:0];
-    [cancelBtn setBackgroundImage:[self imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
-    [cancelBtn setBackgroundImage:[self imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
+    [cancelBtn setTitleColor:OKActionSheet_ButtonTitleColor forState:UIControlStateDisabled];
+    [cancelBtn setTitleColor:OKActionSheet_cancelTitleColor forState:0];
+    [cancelBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
+    [cancelBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
     [contentView addSubview:cancelBtn];
     [cancelBtn setExclusiveTouch:YES];
     
     //根据文字类型设置取消按钮标题
     if ([cancelTitle isKindOfClass:[NSString class]]) {
-        [cancelBtn setTitle:cancelTitle forState:0];
+
+        if (self.cancelBtnTitleAttributes) {
+            NSAttributedString *cancelTitleAttr = [[NSAttributedString alloc] initWithString:cancelTitle attributes:self.cancelBtnTitleAttributes];
+            [cancelBtn setAttributedTitle:cancelTitleAttr forState:0];
+        } else {
+            [cancelBtn setTitleColor:OKActionSheet_cancelTitleColor forState:0];
+            [cancelBtn setTitle:cancelTitle forState:0];
+        }
         
     } else if([cancelTitle isKindOfClass:[NSAttributedString class]]){
         [cancelBtn setAttributedTitle:cancelTitle forState:0];
@@ -599,15 +644,15 @@ typedef enum : NSUInteger {
         topTipLab.text = @"已经到顶了哦^_^";
         topTipLab.textColor = OKActionSheet_LineColor;
         topTipLab.textAlignment = NSTextAlignmentCenter;
-        topTipLab.font = [UIFont systemFontOfSize:12];
+        topTipLab.font = [UIFont systemFontOfSize:10];
         [contentView insertSubview:topTipLab atIndex:0];
         
         
         UILabel *bottomTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, cancelBtn.y-30, contentView.width, 20)];
-        bottomTipLab.text = @"已经到没有了哦^_^";
+        bottomTipLab.text = @"已经到底了哦^_^";
         bottomTipLab.textColor = OKActionSheet_LineColor;
         bottomTipLab.textAlignment = NSTextAlignmentCenter;
-        bottomTipLab.font = [UIFont systemFontOfSize:12];
+        bottomTipLab.font = [UIFont systemFontOfSize:10];
         [contentView insertSubview:bottomTipLab atIndex:0];
     }
     
@@ -627,8 +672,6 @@ typedef enum : NSUInteger {
                     buttonTitleArr:(NSArray *)buttonTitleArr
                     buttonImageArr:(NSArray *)buttonImageArr
 {
-    self.showTopPosition = position;
-    
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kFullScreenWidth, OKActionSheet_ButtonHeight)];
     contentView.backgroundColor = UIColorFromHex(0xf5f5f5);
     [self addSubview:contentView];
@@ -653,13 +696,12 @@ typedef enum : NSUInteger {
         actionBtn.tag = i;
         [actionBtn.titleLabel setFont:OKActionSheet_font(16)];
         [actionBtn addTarget:self action:@selector(actionBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-        [actionBtn setTitleColor:RGB(231, 231, 231) forState:UIControlStateDisabled];
+        [actionBtn setTitleColor:OKActionSheet_ButtonTitleColor forState:UIControlStateDisabled];
         [actionBtn setTitleColor:OKActionSheet_BlackColor forState:0];
-        [actionBtn setBackgroundImage:[self imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
-        [actionBtn setBackgroundImage:[self imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
+        [actionBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
+        [actionBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Highlighted_Bg_Color] forState:UIControlStateHighlighted];
         actionBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        actionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
-        actionBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 15);
+        actionBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
         [scrollView addSubview:actionBtn];//把每个按钮添加到scrollView上
         [actionBtn setExclusiveTouch:YES];
         
@@ -667,10 +709,17 @@ typedef enum : NSUInteger {
         if (buttonImageArr.count > i) {
             id obj = buttonImageArr[i];
             if ([obj isKindOfClass:[NSString class]]) {
-                [actionBtn setImage:[UIImage imageNamed:obj] forState:0];
-                
+                UIImage *image = [UIImage imageNamed:obj];
+                if (image) {
+                    [actionBtn setImage:image forState:0];
+                    actionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
+                    actionBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 15);
+                }
+
             } else if ([obj isKindOfClass:[UIImage class]]) {
                 [actionBtn setImage:obj forState:0];
+                actionBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 15);
+                actionBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 15);
             }
         }
         
@@ -680,7 +729,13 @@ typedef enum : NSUInteger {
         //根据文字类型设置actionBtn标题
         id buttonTitle = allbuttontitleArr[i];
         if ([buttonTitle isKindOfClass:[NSString class]]) {
-            [actionBtn setTitle:buttonTitle forState:0];
+
+            if (self.otherBtnTitleAttributes) {
+                NSAttributedString *buttonTitleAttr = [[NSAttributedString alloc] initWithString:buttonTitle attributes:self.otherBtnTitleAttributes];
+                [actionBtn setAttributedTitle:buttonTitleAttr forState:0];
+            } else {
+                [actionBtn setTitle:buttonTitle forState:0];
+            }
             
         } else if([buttonTitle isKindOfClass:[NSAttributedString class]]){
             [actionBtn setAttributedTitle:buttonTitle forState:0];
@@ -720,15 +775,15 @@ typedef enum : NSUInteger {
         topTipLab.text = @"已经到顶了哦^_^";
         topTipLab.textColor = OKActionSheet_LineColor;
         topTipLab.textAlignment = NSTextAlignmentCenter;
-        topTipLab.font = [UIFont systemFontOfSize:12];
+        topTipLab.font = [UIFont systemFontOfSize:10];
         [contentView insertSubview:topTipLab atIndex:0];
         
         
         UILabel *bottomTipLab = [[UILabel alloc] initWithFrame:CGRectMake(0, contentView.height-25, contentView.width, 20)];
-        bottomTipLab.text = @"已经到没有了哦^_^";
+        bottomTipLab.text = @"已经到底了哦^_^";
         bottomTipLab.textColor = OKActionSheet_LineColor;
         bottomTipLab.textAlignment = NSTextAlignmentCenter;
-        bottomTipLab.font = [UIFont systemFontOfSize:12];
+        bottomTipLab.font = [UIFont systemFontOfSize:10];
         [contentView insertSubview:bottomTipLab atIndex:0];
     }
     
@@ -786,11 +841,11 @@ typedef enum : NSUInteger {
  */
 - (void)actionBtnAction:(UIButton *)actionBtn
 {
-    NSLog(@"点击了ActionSheet弹框按钮==%zd",actionBtn.tag);
+    OKLog(@"点击了ActionSheet弹框按钮==%zd",actionBtn.tag);
     if (self.actionSheetStyleType != TopSquareSheetStyle) { //从底部弹出
         if (actionBtn.tag == 0) { //取消按钮
-            if (self.cancelBlock) {
-                self.cancelBlock();
+            if (self.cancelButtonBlock) {
+                self.cancelButtonBlock();
             }
         } else { //其他按钮
             if (self.buttonBlock) {
@@ -843,34 +898,67 @@ typedef enum : NSUInteger {
         
     } completion:^(BOOL finished) {
         if (sender) {
-            NSLog(@"点击了ActionSheet灰色背景消失");
-            if (self.cancelBlock) {
-                self.cancelBlock();
-            }
+            OKLog(@"点击了ActionSheet灰色背景消失");
+//            if (self.cancelButtonBlock) {
+//                self.cancelButtonBlock();
+//            }
         }
         [self removeFromSuperview];
     }];
 }
 
-- (void)dealloc
-{
-    NSLog(@"%s",__func__);
-}
+#pragma mark - 工具方法,不引入其他类直接写在当前类
 
-- (UIImage *)imageWithColor:(UIColor *)color {
+/**
+ * 根据颜色获取一个单位大小的图片
+ */
++ (UIImage *)ok_imageWithColor:(UIColor *)color
+{
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     CGContextSetFillColorWithColor(context, [color CGColor]);
     CGContextFillRect(context, rect);
-    
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return image;
 }
 
+/**
+ *  计算不同文本类型的高度
+ */
++ (CGFloat)calculateTextHeight:(UIFont *)font
+            constrainedToWidth:(CGFloat)width
+                    textObject:(id)textObject
+{
+    if ([textObject isKindOfClass:[NSAttributedString class]]) {
+        CGSize textSize = [textObject boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                                   options:(NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingTruncatesLastVisibleLine)
+                                                   context:nil].size;
+        return ceil(textSize.height);
+
+    } else if ([textObject isKindOfClass:[NSString class]]) {
+
+        UIFont *textFont = font ? font : [UIFont systemFontOfSize:[UIFont systemFontSize]];
+        CGSize textSize;
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.lineBreakMode = NSLineBreakByWordWrapping;
+        NSDictionary *attributes = @{NSFontAttributeName: textFont,
+                                     NSParagraphStyleAttributeName: paragraph};
+
+        textSize = [(NSString *)textObject boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                                        options:(NSStringDrawingUsesLineFragmentOrigin |
+                                                                 NSStringDrawingTruncatesLastVisibleLine)
+                                                     attributes:attributes
+                                                        context:nil].size;
+        return ceil(textSize.height);
+    }
+    return 0.0;
+}
+
+- (void)dealloc
+{
+    OKLog(@"OKActionSheetView dealloc");
+}
+
 @end
-
-

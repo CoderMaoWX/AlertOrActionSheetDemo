@@ -10,10 +10,5 @@
 
 @interface FirstViewController : UIViewController
 
-/**
- 判断传入一个数大于10
- */
-- (BOOL)judgeNumGreaterTen:(NSInteger)number;
-
 @end
 

@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */; };
-		A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */; };
 		B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5342A9F1E8E67B100398C4C /* OKAlertView.m */; };
 		B55BE9F81E20D67E00442CCE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B55BE9F71E20D67E00442CCE /* UIKit.framework */; };
 		B572602B1E14FF6F00B6A0AA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B572602A1E14FF6F00B6A0AA /* main.m */; };
@@ -22,9 +20,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
-		A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
-		A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThirdViewController.xib; sourceTree = "<group>"; };
 		B5342A921E8E263200398C4C /* OKPublicDefine.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OKPublicDefine.pch; sourceTree = "<group>"; };
 		B5342A931E8E26C100398C4C /* PubilcFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubilcFile.h; sourceTree = "<group>"; };
 		B5342A9E1E8E67B100398C4C /* OKAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OKAlertView.h; sourceTree = "<group>"; };
@@ -93,9 +88,6 @@
 				B57260301E14FF6F00B6A0AA /* FirstViewController.m */,
 				B57260321E14FF6F00B6A0AA /* SecondViewController.h */,
 				B57260331E14FF6F00B6A0AA /* SecondViewController.m */,
-				A31CBEB91E1BFE5B0052175A /* ThirdViewController.h */,
-				A31CBEBA1E1BFE5B0052175A /* ThirdViewController.m */,
-				A31CBEBB1E1BFE5B0052175A /* ThirdViewController.xib */,
 				B57260351E14FF6F00B6A0AA /* Main.storyboard */,
 				B57260381E14FF6F00B6A0AA /* Assets.xcassets */,
 				B572603A1E14FF6F00B6A0AA /* LaunchScreen.storyboard */,
@@ -187,7 +179,6 @@
 			files = (
 				B572603C1E14FF6F00B6A0AA /* LaunchScreen.storyboard in Resources */,
 				B57260391E14FF6F00B6A0AA /* Assets.xcassets in Resources */,
-				A31CBEBD1E1BFE5B0052175A /* ThirdViewController.xib in Resources */,
 				B57260371E14FF6F00B6A0AA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,7 +193,6 @@
 				B5342AA01E8E67B100398C4C /* OKAlertView.m in Sources */,
 				B572604F1E14FFC000B6A0AA /* OKActionSheetView.m in Sources */,
 				B57260341E14FF6F00B6A0AA /* SecondViewController.m in Sources */,
-				A31CBEBC1E1BFE5B0052175A /* ThirdViewController.m in Sources */,
 				B572602E1E14FF6F00B6A0AA /* AppDelegate.m in Sources */,
 				B57260311E14FF6F00B6A0AA /* FirstViewController.m in Sources */,
 				B572602B1E14FF6F00B6A0AA /* main.m in Sources */,
@@ -284,7 +274,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
@@ -352,7 +341,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
@@ -463,7 +451,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
@@ -482,7 +469,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P8FFNR95EQ;
