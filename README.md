@@ -4,7 +4,7 @@
 
 ### 一、模仿系统的``UIActionSheet``,封装了一个多样式的``ActionSheetView``,用法简单,导入头文件,``OKActionSheetView.h``使用;
 
-使用pod导入方法: pod 'OKAlertContrActionSheet', '~> 0.0.2'
+###### 使用pod导入方法: pod 'OKAlertContrActionSheet', '~> 0.0.2'
 
 ![顶部下拉弹框样式](http://ww1.sinaimg.cn/large/b04498f4gw1fb7s2nnd42g20ab0j1juq.gif)
 
