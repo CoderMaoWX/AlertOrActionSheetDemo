@@ -1,10 +1,13 @@
 # AlertOrActionSheetDemo
+
 ### 此Demo功能描述:
+
 ### 一、模仿系统的``UIActionSheet``,封装了一个多样式的``ActionSheetView``,用法简单,导入头文件,``OKActionSheetView.h``使用;
 
 使用pod导入使用: pod 'OKAlertContrActionSheet', '~> 0.0.2'
 
 <顶部下拉弹框样式>
+
 ![顶部下拉弹框样式](http://ww1.sinaimg.cn/large/b04498f4gw1fb7s2nnd42g20ab0j1juq.gif)
 
 ### 1.顶部下拉弹框样式用法:
@@ -34,6 +37,7 @@
 ```
 
 <底部上拉弹框圆角样式>
+
 ![底部上拉弹框圆角样式](http://ww2.sinaimg.cn/large/b04498f4gw1fb7sl8lsisg20ab0j10uv.gif)
 
 ### 3.底部上拉弹框圆角样式用法:
@@ -49,9 +53,12 @@
 ```
 
 ### 二、封装系统提示框, 兼容iOS9以下的``UiAlertView``, 和iOS9以上的``UIAlertController``;
+
 <普通两个按钮弹框样式>
+
 ![普通两个按钮弹框样式](http://ww4.sinaimg.cn/large/b04498f4gw1fb7smu3sgmg20ab0j0n2b.gif)
-###1.普通两个按钮弹框用法:
+
+### 1.普通两个按钮弹框用法:
 ```
 [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
         NSString *tip = [NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex];
@@ -61,7 +68,9 @@
 ```
 
 <普通两个以上按钮弹框样式>
+
 ![普通两个以上按钮弹框样式](http://ww1.sinaimg.cn/large/b04498f4gw1fb7sodu1lqg20ab0j078x.gif)
+
 ### 1.普通两个以上按钮弹框用法:
 ```
 [OKAlertController alertWithCallBackBlock:^(NSInteger buttonIndex) {
@@ -72,7 +81,9 @@
 ```
 
 <系统带输入弹框弹框样式>
+
 ![系统带输入弹框弹框样式](http://ww4.sinaimg.cn/large/b04498f4gw1fb7spjpqwug20ab0j00zf.gif)
+
 ### 1.系统带输入弹框弹框用法:
 ```
 [OKAlertController inputAlertWithTitle:@"请输入" placeholder:@"输入弹框控件" cancelTitle:@"取消" otherTitle:@"确定" buttonBlock:^(NSString *inputText) {
