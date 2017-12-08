@@ -151,11 +151,11 @@
             </objects>
             <point key="canvasLocation" x="-42" y="7"/>
         </scene>
-        <!--First-->
+        <!--ActionSheet-->
         <scene sceneID="Kza-sL-txs">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ATJ-wN-HZo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="First" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="ActionSheet" image="first" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Edk-QS-kOA">
                         <autoresizingMask key="autoresizingMask"/>
@@ -169,11 +169,11 @@
             </objects>
             <point key="canvasLocation" x="749.60000000000002" y="-320.68965517241384"/>
         </scene>
-        <!--Second-->
+        <!--AlertView-->
         <scene sceneID="BF0-W3-BJV">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Be-wh-L7V" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Second" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="AlertView" image="second" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="CEV-nQ-CMQ">
                         <autoresizingMask key="autoresizingMask"/>
