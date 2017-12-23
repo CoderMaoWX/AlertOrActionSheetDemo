@@ -1,4 +1,4 @@
-# AlertOrActionSheetDemo 功能描述:
+# 高度自定义简单易用的UIActionSheet与UIAlertView视图
 
 ### 一、模仿系统的``UIActionSheet``,  封装了一个多样式的``ActionSheetView``,  用法简单,导入头文件,  ``OKActionSheetView.h``使用;
 
@@ -6,7 +6,9 @@
 
 ### 1. 顶部下拉弹框样式:
 
-![顶部下拉弹框样式](http://ww1.sinaimg.cn/large/b04498f4gw1fb7s2nnd42g20ab0j1juq.gif)
+![顶部下拉弹框样式](http://upload-images.jianshu.io/upload_images/762411-f5ed1a4b9fbb8bf7.gif?imageMogr2/auto-orient/strip)
+
+
 
 #### 代码用法:
 ```
@@ -22,7 +24,10 @@
 
 ### 2. 底部上拉弹框直角样式:
 
-![底部上拉弹框直角样式](http://ww3.sinaimg.cn/large/b04498f4gw1fb7sjbd7chg20ab0j1tak.gif)
+![底部上拉弹框直角样式](http://upload-images.jianshu.io/upload_images/762411-2bc3047021fe255b.gif?imageMogr2/auto-orient/strip)
+
+
+
 
 #### 代码用法:
 ```
@@ -37,7 +42,9 @@
 
 ### 3. 底部上拉弹框圆角样式:
 
-![底部上拉弹框圆角样式](http://ww2.sinaimg.cn/large/b04498f4gw1fb7sl8lsisg20ab0j10uv.gif)
+![底部上拉弹框圆角样式](http://upload-images.jianshu.io/upload_images/762411-fee0ccb9fb44d876.gif?imageMogr2/auto-orient/strip)
+
+
 
 #### 代码用法:
 ```
@@ -55,7 +62,9 @@
 
 ### 1. 普通两个按钮弹框样式:
 
-![普通两个按钮弹框样式](http://ww4.sinaimg.cn/large/b04498f4gw1fb7smu3sgmg20ab0j0n2b.gif)
+![普通两个按钮弹框样式](http://upload-images.jianshu.io/upload_images/762411-8aed3a356bd5627c.gif?imageMogr2/auto-orient/strip)
+
+
 
 #### 代码用法:
 ```
@@ -68,7 +77,9 @@
 
 ### 2. 普通两个以上按钮弹框样式:
 
-![普通两个以上按钮弹框样式](http://ww1.sinaimg.cn/large/b04498f4gw1fb7sodu1lqg20ab0j078x.gif)
+![普通两个以上按钮弹框样式](http://upload-images.jianshu.io/upload_images/762411-5d8ea7d3878ee122.gif?imageMogr2/auto-orient/strip)
+
+
 
 #### 代码用法:
 ```
@@ -81,7 +92,9 @@
 
 ### 3. 系统带输入弹框弹框样式:
 
-![系统带输入弹框弹框样式](http://ww4.sinaimg.cn/large/b04498f4gw1fb7spjpqwug20ab0j00zf.gif)
+![系统带输入弹框弹框样式](http://upload-images.jianshu.io/upload_images/762411-ad630cdf85e6f28b.gif?imageMogr2/auto-orient/strip)
+
+
 
 #### 代码用法:
 ```
