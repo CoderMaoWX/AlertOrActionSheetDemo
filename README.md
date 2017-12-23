@@ -75,7 +75,7 @@
 
 #### 代码用法:
 ```
-    NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
+    NSString *tipStr = @"第2个弹框标题";
     
     [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
         ShowAlertToast([NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex]);
