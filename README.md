@@ -12,7 +12,7 @@
 
 #### 代码用法:
 ```
-NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
+    NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
     NSArray *btnTitleArr = @[@"常见问题1",@"常见问题2",@"常见问题3",@"常见问题4",@"常见问题5",@"常见问题6",@"常见问题7"];
 
     [OKActionSheetView actionSheetByTopSquare:^(NSInteger buttonIndex) {
@@ -33,7 +33,7 @@ NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"
 
 #### 代码用法:
 ```
-NSString *title = @"人在临死的时候最明白一切都是过眼云烟";
+    NSString *title = @"人在临死的时候最明白一切都是过眼云烟";
     NSArray *otherTitleArr = @[@"按钮1",@"按钮2",@"按钮3",@"按钮4",@"按钮5",@"按钮6",@"按钮7",@"按钮8"];
 
     [OKActionSheetView actionSheetByBottomSquare:^(NSInteger buttonIndex) {
@@ -53,7 +53,7 @@ NSString *title = @"人在临死的时候最明白一切都是过眼云烟";
 
 #### 代码用法:
 ```
-NSString *title = @"生命是个过程，死亡只是必然的结果，但轨迹是自己的色彩和温度，既然不可避免，那么就更无所畏惧。";
+    NSString *title = @"生命是个过程，死亡只是必然的结果，但轨迹是自己的色彩和温度，既然不可避免，那么就更无所畏惧。";
     NSArray *otherTitleArr = @[@"按钮1",@"按钮2",@"按钮3",@"按钮4",@"按钮5",@"按钮6",@"按钮7",@"按钮8"];
 
     [OKActionSheetView actionSheetByBottomCornerRadius:^(NSInteger buttonIndex) {
@@ -75,7 +75,7 @@ NSString *title = @"生命是个过程，死亡只是必然的结果，但轨迹
 
 #### 代码用法:
 ```
-NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
+    NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
     
     [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
         ShowAlertToast([NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex]);
@@ -91,7 +91,7 @@ NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
 
 #### 代码用法:
 ```
-NSString *titleStr = @"温馨提示";
+    NSString *titleStr = @"温馨提示";
     NSString *msgStr = @"显示两个以上按钮";
     
     NSMutableAttributedString *titleAttr = [[NSMutableAttributedString alloc] initWithString:titleStr];
