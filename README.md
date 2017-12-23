@@ -95,19 +95,15 @@ NSString *tipStr = @"第2个弹框标题";
 #### 代码用法:
 ```
 NSString *titleStr = @"温馨提示";
-
 NSString *msgStr = @"显示两个以上按钮";
     
 NSMutableAttributedString *titleAttr = [[NSMutableAttributedString alloc] initWithString:titleStr];
-
 [titleAttr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:22],NSForegroundColorAttributeName:[UIColor yellowColor]} range:NSMakeRange(0, 2)];
     
 NSMutableAttributedString *msgAttr = [[NSMutableAttributedString alloc] initWithString:msgStr];
-
 [msgAttr setAttributes:@{NSForegroundColorAttributeName:[UIColor cyanColor], NSFontAttributeName:[UIFont systemFontOfSize:30]} range:NSMakeRange(2, 2)];
 
 NSMutableAttributedString *buttonTitleAttr = [[NSMutableAttributedString alloc] initWithString:@"确定测试一下"];
-
 [buttonTitleAttr setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor], NSFontAttributeName:[UIFont systemFontOfSize:30]} range:NSMakeRange(2, 2)];
     
 [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
