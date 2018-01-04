@@ -85,4 +85,19 @@
 }
 
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+	NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
+	NSArray *btnTitleArr = @[@"常见问题0",@"常见问题1",@"常见问题2",@"常见问题3",@"常见问题4",@"常见问题5",@"常见问题6",@"常见问题7",
+							 @"常见问题8",@"常见问题9",@"常见问题10",@"常见问题11",@"常见问题12",@"常见问题13"];
+
+	[OKActionSheetView actionSheetByBottomItemCornerRadius:^(NSInteger buttonIndex) {
+		NSLog(@"选择了===%@",btnTitleArr[buttonIndex]);
+
+	} cancelButtonBlock:^{
+		NSLog(@"取消了弹框");
+
+	} buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
+}
+
 @end

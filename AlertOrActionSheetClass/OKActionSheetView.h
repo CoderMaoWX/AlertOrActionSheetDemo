@@ -36,7 +36,7 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex);
  *  @return 返回自定义的ActionSheet实例
  */
 + (instancetype)actionSheetByBottomSquare:(OKActionSheetCallBackBlock)buttonBlock
-                        cancelButtonBlock:(void (^)())cancelButtonBlock
+                        cancelButtonBlock:(void (^)(void))cancelButtonBlock
                                 WithTitle:(id)title
                         cancelButtonTitle:(id)cancelButtonTitle
                       otherButtonTitleArr:(NSArray *)otherButtonTitleArr;
@@ -57,7 +57,7 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex);
  *  @return 返回自定义的ActionSheet实例
  */
 + (instancetype)actionSheetByBottomCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
-                              cancelButtonBlock:(void (^)())cancelButtonBlock
+                              cancelButtonBlock:(void (^)(void))cancelButtonBlock
                                       WithTitle:(id)title
                               cancelButtonTitle:(id)cancelButtonTitle
                             otherButtonTitleArr:(NSArray *)otherButtonTitleArr;
@@ -77,12 +77,28 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex);
  @return                返回自定义的ActionSheet实例
  */
 + (instancetype)actionSheetByTopSquare:(OKActionSheetCallBackBlock)buttonBlock
-                     cancelButtonBlock:(void (^)())cancelButtonBlock
+                     cancelButtonBlock:(void (^)(void))cancelButtonBlock
                              superView:(UIView *)superView
                               position:(CGPoint)position
                         buttonTitleArr:(NSArray *)buttonTitleArr
-                        buttonImageArr:(NSArray <NSString *> *)buttonImageArr;
+                        buttonImageArr:(NSArray *)buttonImageArr;
 
+
+#pragma mark - 底部横向显示按钮Item圆角ActionSheet入口
+
+/**
+ 底部横向显示按钮Item圆角的ActionSheet
+
+ @param buttonBlock     点击按钮回调
+ @param cancelButtonBlock 点击取消或点击背景退出弹框事件回调
+ @param buttonTitleArr  按钮标题(支持 NSString、NSAttributedString)
+ @param buttonImageArr  按钮图标(支持 NSString、UIImage)
+ @return                返回自定义的ActionSheet实例
+ */
++ (instancetype)actionSheetByBottomItemCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
+								  cancelButtonBlock:(void (^)(void))cancelButtonBlock
+									 buttonTitleArr:(NSArray *)buttonTitleArr
+									 buttonImageArr:(NSArray *)buttonImageArr;
 
 /**
  *  给ActionSheet的指定按钮设置标题
