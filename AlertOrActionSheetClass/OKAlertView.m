@@ -696,6 +696,7 @@ void ShowAlertToastDelay(id title, id msg, NSTimeInterval duration, void(^dismis
     
     //美化输入框的边框样式, 系统的比较丑
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+		textField.tintColor = mainColor;
         textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         textField.placeholder = placeholder;
         textField.keyboardType = keyboardType;
@@ -787,10 +788,15 @@ void ShowAlertToastDelay(id title, id msg, NSTimeInterval duration, void(^dismis
                      textObject:(id)textObject
 {
     if ([textObject isKindOfClass:[NSAttributedString class]]) {
-        CGSize textSize = [textObject boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+        CGSize textSize = [(NSAttributedString *)textObject boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
                                                 options:(NSStringDrawingUsesLineFragmentOrigin |NSStringDrawingTruncatesLastVisibleLine)
                                                 context:nil].size;
-        return ceil(textSize.height);
+		CGFloat height = ceil(textSize.height);
+		//iOS9以下计算有bug
+		if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
+			height += 10;
+		}
+		return height;
         
     } else if ([textObject isKindOfClass:[NSString class]]) {
         

@@ -100,7 +100,7 @@
 	} cancelButtonBlock:^{
 		ShowAlertToast(@"点击取消按钮");
 
-	} sheetTitle:@"分享一下" cancelButtonTitle:nil buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
+	} sheetTitle:nil cancelButtonTitle:@"取消" buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
 }
 
 @end
