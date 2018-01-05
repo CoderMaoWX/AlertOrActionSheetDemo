@@ -18,19 +18,19 @@
  */
 + (void)initialize {
     //设置全局标题主题色
-    //    NSMutableDictionary *dict0 = [NSMutableDictionary dictionary];
-    //    dict0[NSForegroundColorAttributeName] = [UIColor redColor];
-    //    [OKActionSheetView appearance].titleTextAttributes = dict0;
+//    NSMutableDictionary *dict0 = [NSMutableDictionary dictionary];
+//    dict0[NSForegroundColorAttributeName] = [UIColor redColor];
+//    [OKActionSheetView appearance].titleTextAttributes = dict0;
 
     //设置全局其他按钮主题色
-    //    NSMutableDictionary *dict2 = [NSMutableDictionary dictionary];
-    //    dict2[NSForegroundColorAttributeName] = [UIColor purpleColor];
-    //    [OKActionSheetView appearance].otherBtnTitleAttributes = dict2;
+//    NSMutableDictionary *dict2 = [NSMutableDictionary dictionary];
+//    dict2[NSForegroundColorAttributeName] = [UIColor purpleColor];
+//    [OKActionSheetView appearance].otherBtnTitleAttributes = dict2;
 
     //设置全局取消按钮主题色
-        NSMutableDictionary *dict3 = [NSMutableDictionary dictionary];
-        dict3[NSForegroundColorAttributeName] = [UIColor redColor];
-        [OKActionSheetView appearance].themeColorBtnTitleAttributes = dict3;
+//    NSMutableDictionary *dict3 = [NSMutableDictionary dictionary];
+//    dict3[NSForegroundColorAttributeName] = [UIColor redColor];
+//    [OKActionSheetView appearance].themeColorBtnTitleAttributes = dict3;
 }
 
 
