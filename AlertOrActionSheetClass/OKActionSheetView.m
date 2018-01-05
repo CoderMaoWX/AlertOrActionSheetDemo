@@ -305,7 +305,6 @@ typedef enum : NSUInteger {
 				OKLog(@"父视图不存在");
 				return nil;
 			}
-			self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.0];
 			[self initTopSquareActionSheetUI:superView
 									position:position
 							  buttonTitleArr:buttonTitleArr
@@ -639,7 +638,7 @@ typedef enum : NSUInteger {
 	[cancelBtn setTitleColor:OKActionSheet_ButtonTitleColor forState:UIControlStateDisabled];
 	[cancelBtn setTitleColor:OKActionSheet_cancelTitleColor forState:0];
 	[cancelBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateDisabled];
-	[cancelBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:OK_Btn_Disabled_Bg_Color] forState:UIControlStateHighlighted];
+	[cancelBtn setBackgroundImage:[OKActionSheetView ok_imageWithColor:[UIColor groupTableViewBackgroundColor]] forState:UIControlStateHighlighted];
 	[contentView addSubview:cancelBtn];
 	[cancelBtn setExclusiveTouch:YES];
 
