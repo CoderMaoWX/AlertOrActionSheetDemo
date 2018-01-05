@@ -38,7 +38,7 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex, id title);
  */
 + (instancetype)actionSheetByBottomSquare:(OKActionSheetCallBackBlock)buttonBlock
                         cancelButtonBlock:(void (^)(void))cancelButtonBlock
-                                WithTitle:(id)title
+                                sheetTitle:(id)title
                         cancelButtonTitle:(id)cancelButtonTitle
                       otherButtonTitleArr:(NSArray *)otherButtonTitleArr;
 
@@ -59,7 +59,7 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex, id title);
  */
 + (instancetype)actionSheetByBottomCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
                               cancelButtonBlock:(void (^)(void))cancelButtonBlock
-                                      WithTitle:(id)title
+                                      sheetTitle:(id)title
                               cancelButtonTitle:(id)cancelButtonTitle
                             otherButtonTitleArr:(NSArray *)otherButtonTitleArr;
 
@@ -98,6 +98,8 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex, id title);
  */
 + (instancetype)actionSheetByBottomItemCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
 								  cancelButtonBlock:(void (^)(void))cancelButtonBlock
+										  sheetTitle:(id)title
+								   cancelButtonTitle:(id)cancelButtonTitle
 									 buttonTitleArr:(NSArray *)buttonTitleArr
 									 buttonImageArr:(NSArray *)buttonImageArr;
 

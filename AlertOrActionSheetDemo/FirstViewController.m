@@ -28,9 +28,9 @@
     //    [OKActionSheetView appearance].otherBtnTitleAttributes = dict2;
 
     //设置全局取消按钮主题色
-    //    NSMutableDictionary *dict3 = [NSMutableDictionary dictionary];
-    //    dict3[NSForegroundColorAttributeName] = [UIColor blueColor];
-    //    [OKActionSheetView appearance].themeColorBtnTitleAttributes = dict3;
+        NSMutableDictionary *dict3 = [NSMutableDictionary dictionary];
+        dict3[NSForegroundColorAttributeName] = [UIColor redColor];
+        [OKActionSheetView appearance].themeColorBtnTitleAttributes = dict3;
 }
 
 
@@ -66,7 +66,7 @@
     } cancelButtonBlock:^{
         ShowAlertToast(@"点击取消按钮");
         
-    } WithTitle:title cancelButtonTitle:@"取消" otherButtonTitleArr:otherTitleArr];
+    } sheetTitle:title cancelButtonTitle:@"取消" otherButtonTitleArr:otherTitleArr];
 }
 
 /**
@@ -82,12 +82,13 @@
     } cancelButtonBlock:^ {
         ShowAlertToast(@"点击取消按钮");
         
-    } WithTitle:title cancelButtonTitle:@"取消" otherButtonTitleArr:otherTitleArr];
+    } sheetTitle:title cancelButtonTitle:@"取消" otherButtonTitleArr:otherTitleArr];
 }
 
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
+/**
+ * 底部上拉弹框Item圆角
+ */
+- (IBAction)style4Action:(UIButton *)sender {
 	NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",
 							   @"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
 	NSArray *btnTitleArr = @[@"常见问题1",@"常见问题2",@"常见问题3",@"常见问题4",@"常见问题5",@"常见问题6",@"常见问题7",@"常见问题8",
@@ -99,7 +100,7 @@
 	} cancelButtonBlock:^{
 		ShowAlertToast(@"点击取消按钮");
 
-	} buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
+	} sheetTitle:@"分享一下" cancelButtonTitle:@"取消" buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
 }
 
 @end

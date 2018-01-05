@@ -144,7 +144,7 @@ typedef enum : NSUInteger {
  */
 + (instancetype)actionSheetByBottomSquare:(OKActionSheetCallBackBlock)buttonBlock
 						cancelButtonBlock:(void (^)(void))cancelButtonBlock
-								WithTitle:(id)title
+								sheetTitle:(id)title
 						cancelButtonTitle:(id)cancelButtonTitle
 					  otherButtonTitleArr:(NSArray *)otherButtonTitleArr
 {
@@ -173,7 +173,7 @@ typedef enum : NSUInteger {
  */
 + (instancetype)actionSheetByBottomCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
 							  cancelButtonBlock:(void (^)(void))cancelButtonBlock
-									  WithTitle:(id)title
+									  sheetTitle:(id)title
 							  cancelButtonTitle:(id)cancelButtonTitle
 							otherButtonTitleArr:(NSArray *)otherButtonTitleArr
 {
@@ -236,6 +236,8 @@ typedef enum : NSUInteger {
  */
 + (instancetype)actionSheetByBottomItemCornerRadius:(OKActionSheetCallBackBlock)buttonBlock
 								  cancelButtonBlock:(void (^)(void))cancelButtonBlock
+										 sheetTitle:(id)title
+								  cancelButtonTitle:(id)cancelButtonTitle
 									 buttonTitleArr:(NSArray *)buttonTitleArr
 									 buttonImageArr:(NSArray *)buttonImageArr
 {
@@ -247,8 +249,8 @@ typedef enum : NSUInteger {
 	return [[self alloc] initWithFrame:[UIScreen mainScreen].bounds
 							 superView:nil
 							  position:CGPointZero
-								 title:nil
-					  cancelButtonName:nil
+								 title:title
+					  cancelButtonName:cancelButtonTitle
 						buttonTitleArr:buttonTitleArr
 						buttonImageArr:buttonImageArr
 								 block:buttonBlock
@@ -325,6 +327,7 @@ typedef enum : NSUInteger {
 				return nil;
 			}
 			[self initBottomItemCornerRadiusActionSheetUI:title
+											  cancelTitle:cancelTitle
 										   buttonTitleArr:buttonTitleArr
 										   buttonImageArr:buttonImageArr];
 		}
@@ -884,6 +887,7 @@ typedef enum : NSUInteger {
  *  创建底部横向Item按钮圆角ActionSheet
  */
 - (void)initBottomItemCornerRadiusActionSheetUI:(id)tipTitle
+									cancelTitle:(id)cancelTitle
 								 buttonTitleArr:(NSArray *)buttonTitleArr
 								 buttonImageArr:(NSArray *)buttonImageArr
 {
@@ -895,8 +899,6 @@ typedef enum : NSUInteger {
 	contentView.layer.masksToBounds = YES;
 	[self addSubview:contentView];
 	self.contentView = contentView;
-
-	tipTitle = @"分享";
 
 	UIColor *lineColor = OkColorFromHex(0xe5e5e5);
 	CGFloat maxHeight = 0;
@@ -1026,6 +1028,7 @@ typedef enum : NSUInteger {
 		scrollView.height = CGRectGetMaxY(itemBtn.frame);
 		tempPageView.height = scrollView.height;
 		maxHeight = CGRectGetMaxY(scrollView.frame);
+		contentView.height = maxHeight;
 	}
 
 	//添加滚动页显示条
@@ -1033,6 +1036,7 @@ typedef enum : NSUInteger {
 		//有滚动才设置代理
 		scrollView.delegate = self;
 
+		CGFloat indicatorHeight = 2;
 		CGFloat space = 4;
 		CGFloat indicatorWidth = 8;
 		CGFloat indicatorAllWidth = indicatorWidth * pageCount + (pageCount-1) * space;
@@ -1040,9 +1044,9 @@ typedef enum : NSUInteger {
 		for (int i=0; i<pageCount; i++) {
 			CGFloat tempX = indicatorStartX + i * indicatorWidth + i*space;
 
-			UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(tempX, maxHeight, indicatorWidth, 2)];
+			UIView *indicatorView = [[UIView alloc] initWithFrame:CGRectMake(tempX, maxHeight, indicatorWidth, indicatorHeight)];
 			indicatorView.backgroundColor = (i==0) ? OkColorFromHex(0x666666) : OkColorFromHex(0xDDDDDD);
-			indicatorView.layer.cornerRadius = 1;
+			indicatorView.layer.cornerRadius = indicatorHeight/2;
 			indicatorView.layer.masksToBounds = YES;
 			[contentView addSubview:indicatorView];
 			indicatorView.tag = OKActionCancelBtnTag*2+i;
@@ -1050,6 +1054,19 @@ typedef enum : NSUInteger {
 				self.lastIndicatorView = indicatorView;
 			}
 		}
+		maxHeight = maxHeight + indicatorHeight;
+		contentView.height = maxHeight;
+	}
+
+	//添加到window上显示
+	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+	[window endEditing:YES];
+	[window addSubview:self];
+
+	//如果没有取消按钮就不添加
+	if (!cancelTitle) {
+		contentView.height = maxHeight + 10;
+		return ;
 	}
 
 	//分割线
@@ -1059,8 +1076,6 @@ typedef enum : NSUInteger {
 	[contentView addSubview:bottomLine];
 
 	//添加取消按钮
-	id cancelBtnTitle = @"取消";
-
 	UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 	[cancelBtn setSize:CGSizeMake(kOKFullScreenWidth, OKActionSheet_ButtonHeight)];
 	cancelBtn.backgroundColor = [UIColor whiteColor];
@@ -1078,25 +1093,22 @@ typedef enum : NSUInteger {
 	[cancelBtn setExclusiveTouch:YES];
 
 	//设置按钮标题
-	if ([cancelBtnTitle isKindOfClass:[NSString class]]) {
+	if ([cancelTitle isKindOfClass:[NSString class]]) {
 
-		if (self.otherBtnTitleAttributes) {
-			NSAttributedString *buttonTitleAttr = [[NSAttributedString alloc] initWithString:cancelBtnTitle attributes:self.otherBtnTitleAttributes];
+		if (self.themeColorBtnTitleAttributes) {
+			NSAttributedString *buttonTitleAttr = [[NSAttributedString alloc] initWithString:cancelTitle attributes:self.themeColorBtnTitleAttributes];
 			[cancelBtn setAttributedTitle:buttonTitleAttr forState:0];
 		} else {
-			[cancelBtn setTitle:cancelBtnTitle forState:0];
+			[cancelBtn setTitle:cancelTitle forState:0];
 		}
 
-	} else if([cancelBtnTitle isKindOfClass:[NSAttributedString class]]){
-		[cancelBtn setAttributedTitle:cancelBtnTitle forState:0];
+	} else if([cancelTitle isKindOfClass:[NSAttributedString class]]){
+		[cancelBtn setAttributedTitle:cancelTitle forState:0];
 	}
 
 	maxHeight = CGRectGetMaxY(cancelBtn.frame);
 	contentView.height = maxHeight;
 
-	UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-	[window endEditing:YES];
-	[window addSubview:self];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView

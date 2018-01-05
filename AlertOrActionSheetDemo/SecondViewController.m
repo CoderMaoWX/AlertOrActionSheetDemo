@@ -79,7 +79,7 @@
     
     [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex, id title) {
 		if ([buttonTitleAttr isEqual:title]) {
-			NSLog(@"两个标题一直");
+			NSLog(@"两个标题对象一致");
 		}
         ShowAlertToast(title);
 
