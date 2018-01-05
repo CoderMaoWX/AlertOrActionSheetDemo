@@ -62,9 +62,9 @@
 //Label与contenView的间距
 #define  OKAlertView_KitMargin                  20
 //线条高度
-#define  OKAlertView_LineHeight                 (1/[UIScreen mainScreen].scale)
+#define  OKAlertView_LineHeight                 (0.5)
 //线条颜色
-#define  OKAlertView_LineColor                  OKColorFromHex(0xe2e2e2)
+#define  OKAlertView_LineColor                  OKColorFromHex(0xDDDDDD)
 //文本颜色
 #define  OKAlertView_LabelColor                 [UIColor blackColor]
 
@@ -216,7 +216,7 @@ void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
         self.titleTextAttributes = [OKAlertView appearance].titleTextAttributes ? : nil;
         self.messageTextAttributes = [OKAlertView appearance].messageTextAttributes ? : nil;
         self.otherBtnTitleAttributes = [OKAlertView appearance].otherBtnTitleAttributes ? : nil;
-        self.cancelBtnTitleAttributes = [OKAlertView appearance].cancelBtnTitleAttributes ? : nil;
+        self.themeColorBtnTitleAttributes = [OKAlertView appearance].themeColorBtnTitleAttributes ? : nil;
         
         //1.先移除window上已存在的OKAlertView
         [self removeOkAlertFromWindow];
@@ -373,7 +373,7 @@ void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
         [actionBtn setExclusiveTouch:YES];
         [contentView addSubview:actionBtn];
         actionBtn.tag = i;
-        
+
         //赋值按钮标题
         id btnTitleObject = allTitleArr[i];
         if ([btnTitleObject isKindOfClass:[NSString class]]) {
@@ -444,8 +444,8 @@ void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
 {
     if ([cancelTitleObject isKindOfClass:[NSString class]]) {
 
-        if (self.cancelBtnTitleAttributes) {
-            NSAttributedString *btnTitleAttr = [[NSAttributedString alloc] initWithString:cancelTitleObject attributes:self.cancelBtnTitleAttributes];
+        if (self.themeColorBtnTitleAttributes) {
+            NSAttributedString *btnTitleAttr = [[NSAttributedString alloc] initWithString:cancelTitleObject attributes:self.themeColorBtnTitleAttributes];
             [cancelBtn setAttributedTitle:btnTitleAttr forState:0];
         } else {
             [cancelBtn setTitleColor:OKAlertView_MainColor forState:0];
@@ -490,12 +490,22 @@ void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
                 //根据文字类型设置标题
                 if ([title isKindOfClass:[NSString class]]) {
 
-                    if (self.messageTextAttributes) {
-                        NSAttributedString *btnTitleAttr = [[NSAttributedString alloc] initWithString:title attributes:self.messageTextAttributes];
-                        [actionBtn setAttributedTitle:btnTitleAttr forState:0];
-                    } else {
-                        [actionBtn setTitle:title forState:0];
-                    }
+					if (index == 0) { //取消按钮
+						if (self.themeColorBtnTitleAttributes) {
+							NSAttributedString *btnTitleAttr = [[NSAttributedString alloc] initWithString:title attributes:self.themeColorBtnTitleAttributes];
+							[actionBtn setAttributedTitle:btnTitleAttr forState:0];
+						} else {
+							[actionBtn setTitle:title forState:0];
+						}
+
+					} else { //其他按钮
+						if (self.otherBtnTitleAttributes) {
+							NSAttributedString *btnTitleAttr = [[NSAttributedString alloc] initWithString:title attributes:self.otherBtnTitleAttributes];
+							[actionBtn setAttributedTitle:btnTitleAttr forState:0];
+						} else {
+							[actionBtn setTitle:title forState:0];
+						}
+					}
 
                 } else if([title isKindOfClass:[NSAttributedString class]]){
                     [actionBtn setAttributedTitle:title forState:0];
@@ -514,8 +524,27 @@ void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
  */
 - (void)alertBtnAction:(UIButton *)actionBtn
 {
+	//按钮标题, 如果是主题色按钮, 则用NSString标题
+	id titleObjc = nil;
+	NSAttributedString *titleAttrStr = actionBtn.currentAttributedTitle;
+	if (titleAttrStr) {
+
+		if (actionBtn.tag == 0) { //取消按钮
+			if (self.themeColorBtnTitleAttributes) {
+				titleObjc = titleAttrStr.string;
+			} else {
+				titleObjc = titleAttrStr;
+			}
+		} else { //其他按钮
+			titleObjc = titleAttrStr;
+		}
+
+	} else {
+		titleObjc = actionBtn.currentTitle;
+	}
+
     if (self.alertCallBackBlock) {
-        self.alertCallBackBlock(actionBtn.tag);
+		self.alertCallBackBlock(actionBtn.tag, titleObjc);
     }
     //退出弹框
     [self dismissOKAlertView:nil];
@@ -641,7 +670,7 @@ void ShowAlertToastDelay(id title, id msg, NSTimeInterval duration, void(^dismis
                                cancelBlock:(void (^)(void))cancelBlock
 {
     UIColor *mainColor = OKAlertView_MainColor;
-    NSDictionary *cancelAttributes = [OKAlertView appearance].cancelBtnTitleAttributes;
+    NSDictionary *cancelAttributes = [OKAlertView appearance].themeColorBtnTitleAttributes;
     if (cancelAttributes && cancelAttributes[NSForegroundColorAttributeName]) {
         UIColor *color = cancelAttributes[NSForegroundColorAttributeName];
         if ([color isKindOfClass:[UIColor class]]) {
@@ -672,7 +701,7 @@ void ShowAlertToastDelay(id title, id msg, NSTimeInterval duration, void(^dismis
         textField.keyboardType = keyboardType;
         
         if ([[[UIDevice currentDevice] systemVersion] floatValue] < 9.0) {
-            textField.superview.superview.layer.cornerRadius = 1;
+            textField.superview.superview.layer.cornerRadius = 3;
             textField.superview.superview.layer.masksToBounds = YES;
             textField.superview.superview.layer.borderColor = OKColorFromHex(0xdcdcdc).CGColor;
             textField.superview.superview.layer.borderWidth = 0.5;

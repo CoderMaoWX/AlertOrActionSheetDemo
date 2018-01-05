@@ -30,7 +30,7 @@
     //设置全局取消按钮主题色
     //    NSMutableDictionary *dict3 = [NSMutableDictionary dictionary];
     //    dict3[NSForegroundColorAttributeName] = [UIColor blueColor];
-    //    [OKActionSheetView appearance].cancelBtnTitleAttributes = dict3;
+    //    [OKActionSheetView appearance].themeColorBtnTitleAttributes = dict3;
 }
 
 
@@ -39,11 +39,12 @@
  */
 - (IBAction)style1Action:(UIButton *)sender
 {
-    NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
+    NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",
+							   @"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
     NSArray *btnTitleArr = @[@"常见问题1",@"常见问题2",@"常见问题3",@"常见问题4",@"常见问题5",@"常见问题6",@"常见问题7"];
 
-    [OKActionSheetView actionSheetByTopSquare:^(NSInteger buttonIndex) {
-        ShowAlertToast([NSString stringWithFormat:@"点击了第%zd行",buttonIndex]);
+    [OKActionSheetView actionSheetByTopSquare:^(NSInteger buttonIndex, id title) {
+        ShowAlertToast(title);
         
     } cancelButtonBlock:^{
         ShowAlertToast(@"点击取消按钮");
@@ -59,8 +60,8 @@
     NSString *title = @"人在临死的时候最明白一切都是过眼云烟";
     NSArray *otherTitleArr = @[@"按钮1",@"按钮2",@"按钮3",@"按钮4",@"按钮5",@"按钮6",@"按钮7",@"按钮8"];
 
-    [OKActionSheetView actionSheetByBottomSquare:^(NSInteger buttonIndex) {
-        ShowAlertToast([NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex]);
+    [OKActionSheetView actionSheetByBottomSquare:^(NSInteger buttonIndex, id title) {
+        ShowAlertToast(title);
 
     } cancelButtonBlock:^{
         ShowAlertToast(@"点击取消按钮");
@@ -75,8 +76,8 @@
     NSString *title = @"生命是个过程，死亡只是必然的结果，但轨迹是自己的色彩和温度，既然不可避免，那么就更无所畏惧。";
     NSArray *otherTitleArr = @[@"按钮1",@"按钮2",@"按钮3",@"按钮4",@"按钮5",@"按钮6",@"按钮7",@"按钮8"];
 
-    [OKActionSheetView actionSheetByBottomCornerRadius:^(NSInteger buttonIndex) {
-        ShowAlertToast([NSString stringWithFormat:@"点击了第%zd行",buttonIndex]);
+    [OKActionSheetView actionSheetByBottomCornerRadius:^(NSInteger buttonIndex, id title) {
+        ShowAlertToast(title);
 
     } cancelButtonBlock:^ {
         ShowAlertToast(@"点击取消按钮");
@@ -87,15 +88,16 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-	NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
-	NSArray *btnTitleArr = @[@"常见问题0",@"常见问题1",@"常见问题2",@"常见问题3",@"常见问题4",@"常见问题5",@"常见问题6",@"常见问题7",
-							 @"常见问题8",@"常见问题9",@"常见问题10",@"常见问题11",@"常见问题12",@"常见问题13"];
+	NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",
+							   @"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor",@"commonQut-nor"];
+	NSArray *btnTitleArr = @[@"常见问题1",@"常见问题2",@"常见问题3",@"常见问题4",@"常见问题5",@"常见问题6",@"常见问题7",@"常见问题8",
+							 @"常见问题9",@"常见问题10",@"常见问题11",@"常见问题12",@"常见问题13",@"常见问题14",@"常见问题15",@"常见问题16"];
 
-	[OKActionSheetView actionSheetByBottomItemCornerRadius:^(NSInteger buttonIndex) {
-		NSLog(@"选择了===%@",btnTitleArr[buttonIndex]);
+	[OKActionSheetView actionSheetByBottomItemCornerRadius:^(NSInteger buttonIndex, id title) {
+		ShowAlertToast(title);
 
 	} cancelButtonBlock:^{
-		NSLog(@"取消了弹框");
+		ShowAlertToast(@"点击取消按钮");
 
 	} buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
 }

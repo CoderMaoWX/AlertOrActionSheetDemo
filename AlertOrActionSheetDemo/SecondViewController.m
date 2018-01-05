@@ -26,15 +26,15 @@
 //    dict1[NSForegroundColorAttributeName] = [UIColor greenColor];
 //    [OKAlertView appearance].messageTextAttributes = dict1;
 
-    //设置全局其他按钮主题色
+//    //设置全局其他按钮主题色
 //    NSMutableDictionary *dict2 = [NSMutableDictionary dictionary];
 //    dict2[NSForegroundColorAttributeName] = [UIColor purpleColor];
 //    [OKAlertView appearance].otherBtnTitleAttributes = dict2;
 
     //设置全局取消按钮主题色
 //    NSMutableDictionary *dict3 = [NSMutableDictionary dictionary];
-//    dict3[NSForegroundColorAttributeName] = [UIColor blueColor];
-//    [OKAlertView appearance].cancelBtnTitleAttributes = dict3;
+//    dict3[NSForegroundColorAttributeName] = [UIColor redColor];
+//    [OKAlertView appearance].themeColorBtnTitleAttributes = dict3;
 }
 
 
@@ -54,8 +54,8 @@
 {
     NSString *tipStr = sender ? @"第2个弹框标题" : @"第1个弹框标题";
     
-    [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
-        ShowAlertToast([NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex]);
+    [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex, id title) {
+        ShowAlertToast(title);
 
     } title:@"温馨提示" message:tipStr cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
 }
@@ -77,8 +77,11 @@
     NSMutableAttributedString *buttonTitleAttr = [[NSMutableAttributedString alloc] initWithString:@"确定测试一下"];
     [buttonTitleAttr setAttributes:@{NSForegroundColorAttributeName:[UIColor redColor], NSFontAttributeName:[UIFont systemFontOfSize:30]} range:NSMakeRange(2, 2)];
     
-    [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex) {
-        ShowAlertToast([NSString stringWithFormat:@"点击了第%zd个按钮",buttonIndex]);
+    [OKAlertView alertWithCallBlock:^(NSInteger buttonIndex, id title) {
+		if ([buttonTitleAttr isEqual:title]) {
+			NSLog(@"两个标题一直");
+		}
+        ShowAlertToast(title);
 
     } title:titleAttr message:msgAttr cancelButtonTitle:@"取消" otherButtonTitles:@"确定1",buttonTitleAttr,@"确定3", nil];
 }

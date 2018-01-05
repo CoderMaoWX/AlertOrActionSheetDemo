@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex);
+// title -> NSString、NSAttributedString
+typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex, id title);
 
 /**
  * 仿ActionSheet的弹框
@@ -20,7 +21,7 @@ typedef void(^OKActionSheetCallBackBlock)(NSInteger buttonIndex);
  */
 @property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *titleTextAttributes UI_APPEARANCE_SELECTOR;
 @property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *otherBtnTitleAttributes UI_APPEARANCE_SELECTOR;
-@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *cancelBtnTitleAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *themeColorBtnTitleAttributes UI_APPEARANCE_SELECTOR; //APP的主色按钮外观
 
 #pragma mark - 底部显示直角的ActionSheet
 

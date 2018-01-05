@@ -8,18 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex);
+// title -> NSString、NSAttributedString
+typedef void(^OKAlertViewCallBackBlock)(NSInteger buttonIndex, id title);
 
 
 @interface OKAlertView : UIView
 
-/** 可以在程序启动后,初始化OKAlertView单个控件的主题色, App设置一次全局生效
+/** 可以在程序启动后,个性定制OKAlertView单个控件的外观, App设置一次全局生效
  *  用法: [OKActionSheetView appearance].titleTextAttributes = @{NSFontAttributeName:[UIFont systemFontOfSize:10], ....};
  */
 @property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *titleTextAttributes UI_APPEARANCE_SELECTOR;
 @property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *messageTextAttributes UI_APPEARANCE_SELECTOR;
 @property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *otherBtnTitleAttributes UI_APPEARANCE_SELECTOR;
-@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *cancelBtnTitleAttributes UI_APPEARANCE_SELECTOR;
+@property (nonatomic,copy) NSDictionary<NSAttributedStringKey, id> *themeColorBtnTitleAttributes UI_APPEARANCE_SELECTOR;//APP的主色按钮外观
 
 /**
  自定义的AlertView弹框
