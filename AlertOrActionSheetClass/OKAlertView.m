@@ -536,7 +536,11 @@ void ShowAlertSingleBtnView(id title, id message, id cancelButtonTitle){
 				titleObjc = titleAttrStr;
 			}
 		} else { //其他按钮
-			titleObjc = titleAttrStr;
+			if (self.otherBtnTitleAttributes) {
+				titleObjc = titleAttrStr.string;
+			} else {
+				titleObjc = titleAttrStr;
+			}
 		}
 
 	} else {
