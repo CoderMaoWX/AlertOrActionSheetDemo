@@ -2,7 +2,7 @@
 
 ### 一、模仿系统的``UIActionSheet``,  封装了一个多样式的``ActionSheetView``,  用法简单,导入头文件,  ``OKActionSheetView.h``使用;
 
-### 使用pod导入方法:  pod 'OKAlertContrActionSheet', '~> 0.0.2'
+### 使用pod导入方法:  pod 'OKAlertContrActionSheet', '~> 0.0.3'
 
 ### 1. 顶部下拉弹框样式:
 
@@ -112,7 +112,28 @@ NSMutableAttributedString *buttonTitleAttr = [[NSMutableAttributedString alloc] 
 } title:titleAttr message:msgAttr cancelButtonTitle:@"取消" otherButtonTitles:@"确定1",buttonTitleAttr,@"确定3", nil];
 ```
 
-### 3. 系统带输入弹框弹框样式:
+### 3. 底部上拉弹框Item圆角弹框样式:
+
+![底部上拉弹框Item圆角弹框样式](http://upload-images.jianshu.io/upload_images/762411-fa2740167a9ea044.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+
+#### 代码用法:
+```
+NSArray *btnImgNameArr = @[@"commonQut-nor",@"commonQut-nor",......];
+NSArray *btnTitleArr = @[@"常见问题1",@"常见问题2",...];
+
+[OKActionSheetView actionSheetByBottomItemCornerRadius:^(NSInteger buttonIndex, id title) {
+		ShowAlertToast(title);
+
+} cancelButtonBlock:^{
+		ShowAlertToast(@"点击取消按钮");
+
+} sheetTitle:nil cancelButtonTitle:@"取消" buttonTitleArr:btnTitleArr buttonImageArr:btnImgNameArr];
+```
+
+
+### 4. 系统带输入弹框弹框样式:
 
 ![系统带输入弹框弹框样式](http://upload-images.jianshu.io/upload_images/762411-ad630cdf85e6f28b.gif?imageMogr2/auto-orient/strip)
 
